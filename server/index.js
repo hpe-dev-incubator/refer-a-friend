@@ -11,8 +11,7 @@ app.post('/api/refer-a-friend', (req, res) => {
 });
 
 app.post('/api/check-in', (req, res) => {
-  console.log('Req',req);
-  console.log('Res',res);
+  console.log('THIS IS THE REQ',req.body);
 });
 
 app.listen(port, () => console.log(`listening on port ${port}...`));

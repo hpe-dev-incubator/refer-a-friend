@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Box, Button, Paragraph, Layer, TextInput } from 'grommet';
+import { Box, Button, Paragraph, Layer, TextInput, Text } from 'grommet';
+import { AddCircle, FormSubtract } from 'grommet-icons'; 
 import { Layout } from './styles';
 
 class SubmissionManager extends Component {
   constructor(){
     super();
     this.state = {
-      referrals: ['Sardu', 'Bolivar', 'Goodweather'],
+      referrals: [],
       referrer: 'Setrakian',
       checkin: 'Fet',
       modalOpen: false
@@ -15,15 +16,34 @@ class SubmissionManager extends Component {
     this.onCheckinSubmit = this.onCheckinSubmit.bind(this);
     this.onModalOpen = this.onModalOpen.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
+    this.onAddReferralField = this.onAddReferralField.bind(this);
+    this.onRemoveReferralField = this.onRemoveReferralField.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
-/* Open and close modal handlers  */
-  onModalOpen(event) {
+/* Handlers that open and close modal */
+  onModalOpen() {
     this.setState({ modalOpen: true });
   }
-  onModalClose(event) {
+  onModalClose() {
     this.setState({ modalOpen: false});
   }
-  onReferralSubmit(event) {
+/* Handlers to add or remove text fields from layer */
+  onAddReferralField() {
+    const { referrals } = this.state;
+    this.setState({ referrals: [...referrals, ''] })
+  }
+  onRemoveReferralField(index) {
+    const { referrals } = this.state;
+    referrals.splice(index, 1);
+    this.setState({ referrals: referrals });
+  }
+  onChange(index, event) {
+    const text = event.target.value;
+    const { referrals } = this.state;
+    referrals[index] = text;
+    this.setState({ referrals: referrals });
+  }
+  onReferralSubmit() {
     console.log('Referral!');
     fetch('/api/refer-a-friend', {
       method: 'POST',
@@ -31,18 +51,18 @@ class SubmissionManager extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ referrer: this.state.referrer, referals: this.state.referrals })
+      body: JSON.stringify({ referrer: this.state.referrer, referrals: this.state.referrals })
     })
     .then(response => console.log(response))
   }
-  onCheckinSubmit(event) {
+  onCheckinSubmit() {
     console.log('Check-in!');
   }
   render() {
-    const { modalOpen } = this.state;
+    const { modalOpen, referrals } = this.state;
     let layer;
     if(modalOpen){
-      layer = <FormLayer onClose={this.onModalClose}/>
+      layer = <FormLayer referrals={referrals} removeField={this.onRemoveReferralField} addField={this.onAddReferralField} onClose={this.onModalClose} onChange={this.onChange}/>
     }
     return(
       <Layout>
@@ -79,7 +99,7 @@ class SubmissionManager extends Component {
 
 export default SubmissionManager;
 
-const FormLayer = ({onClose}) => (
+const FormLayer = ({onClose, referrals, addField, removeField, onChange}) => (
   <Layer
     modal={true}
     onClickOutside={onClose}
@@ -87,10 +107,19 @@ const FormLayer = ({onClose}) => (
     position="right"
     full="vertical"
   >
-    <Box>
-      <TextInput>
-
-      </TextInput>
+    <Box justify="center" margin="small" direction="column">
+      <Paragraph textAlign="center">Refer a Friend!</Paragraph>
+      <Box>
+        <TextInput></TextInput>
+        <Text margin={{ "left": "small" }}>Your email</Text>
+      </Box>
+      {referrals.map((referral, index) => 
+        <Box direction="row" key={index} margin="xsmall">
+          <TextInput onChange={onChange.bind(this, index)} value={referral}></TextInput>
+          <Button onClick={removeField.bind(this, index)} style={{ padding: 0 }} icon={<FormSubtract />}></Button> 
+        </Box>
+      )}
+      <Button onClick={addField} icon={<AddCircle />}></Button>
     </Box>
   </Layer>
 );
