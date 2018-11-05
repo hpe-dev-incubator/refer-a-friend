@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Box, Button, Paragraph, Layer, TextInput, Text } from 'grommet';
-import { AddCircle, FormSubtract } from 'grommet-icons'; 
+import { AddCircle, FormSubtract, Close } from 'grommet-icons'; 
 import { Layout } from './styles';
 
 class SubmissionManager extends Component {
@@ -8,24 +8,28 @@ class SubmissionManager extends Component {
     super();
     this.state = {
       referrals: [],
-      referrer: 'Setrakian',
+      referrer: '',
       checkin: 'Fet',
       modalOpen: false
     };
-    this.onReferralSubmit = this.onReferralSubmit.bind(this);
-    this.onCheckinSubmit = this.onCheckinSubmit.bind(this);
     this.onModalOpen = this.onModalOpen.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
+
+    this.onReferralSubmit = this.onReferralSubmit.bind(this);
+    this.onCheckinSubmit = this.onCheckinSubmit.bind(this);
+
+    this.onReferrerChange = this.onReferrerChange.bind(this);
+    this.onReferralChange = this.onReferralChange.bind(this);
+
     this.onAddReferralField = this.onAddReferralField.bind(this);
     this.onRemoveReferralField = this.onRemoveReferralField.bind(this);
-    this.onChange = this.onChange.bind(this);
   }
 /* Handlers that open and close modal */
   onModalOpen() {
     this.setState({ modalOpen: true });
   }
   onModalClose() {
-    this.setState({ modalOpen: false});
+    this.setState({ modalOpen: false, referrals: [], referrer: ''});
   }
 /* Handlers to add or remove text fields from layer */
   onAddReferralField() {
@@ -37,32 +41,40 @@ class SubmissionManager extends Component {
     referrals.splice(index, 1);
     this.setState({ referrals: referrals });
   }
-  onChange(index, event) {
+/* Handler for refer-a-friend, and referrer text field changes */
+  onReferralChange(index, event) {
     const text = event.target.value;
     const { referrals } = this.state;
     referrals[index] = text;
     this.setState({ referrals: referrals });
   }
+  onReferrerChange(event) {
+    const text = event.target.value;
+    this.setState({ referrer: text });
+  }
+/* Handlers for referral and checkin for submit, sends data to API */
   onReferralSubmit() {
     console.log('Referral!');
-    fetch('/api/refer-a-friend', {
+    const { referrals, referrer } = this.state
+    return fetch('/api/refer-a-friend', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ referrer: this.state.referrer, referrals: this.state.referrals })
+      body: JSON.stringify({ referrer: referrer, referrals: referrals })
     })
-    .then(response => console.log(response))
+    .then(response => this.setState({ referrals: [], referrer: '', modalOpen: false }));
   }
   onCheckinSubmit() {
     console.log('Check-in!');
   }
   render() {
-    const { modalOpen, referrals } = this.state;
+    const { modalOpen, referrals, referrer } = this.state;
+  /* Layer declaration and logic */
     let layer;
     if(modalOpen){
-      layer = <FormLayer referrals={referrals} removeField={this.onRemoveReferralField} addField={this.onAddReferralField} onClose={this.onModalClose} onChange={this.onChange}/>
+      layer = <FormLayer referrals={referrals} referrer={referrer} removeField={this.onRemoveReferralField} addField={this.onAddReferralField} onClose={this.onModalClose} onReferralChange={this.onReferralChange} onReferrerChange={this.onReferrerChange} onReferralSubmit={this.onReferralSubmit}/>
     }
     return(
       <Layout>
@@ -72,7 +84,14 @@ class SubmissionManager extends Component {
           align="center"
           fill={true}
         >
-          <Box border="all" margin="small" basis="small" height="xsmall">
+      {/* Refer-A-Friend Button */}
+          <Box 
+            border="all" 
+            round="xsmall" 
+            margin="small" 
+            basis="small" 
+            height="xsmall"
+          >
             <Button 
               plain={true}
               fill={true} 
@@ -81,7 +100,14 @@ class SubmissionManager extends Component {
               <Paragraph size="large" textAlign="center">Refer A Friend!</Paragraph>
             </Button>
           </Box>
-          <Box border="all" margin="small" basis="small" height="xsmall">
+        {/* Check-In Button */}
+          <Box 
+            border="all" 
+            round="xsmall" 
+            margin="small" 
+            basis="small" 
+            height="xsmall"
+          >
             <Button 
               plain={true} 
               fill={true}
@@ -91,6 +117,7 @@ class SubmissionManager extends Component {
             </Button>
           </Box>
         </Box>
+      {/* Layers */}
         {layer}
       </Layout>
     )
@@ -99,27 +126,31 @@ class SubmissionManager extends Component {
 
 export default SubmissionManager;
 
-const FormLayer = ({onClose, referrals, addField, removeField, onChange}) => (
+const FormLayer = ({onClose, onReferralSubmit, referrer, referrals, addField, removeField, onReferrerChange, onReferralChange}) => (
   <Layer
     modal={true}
-    onClickOutside={onClose}
     onEsc={onClose}
     position="right"
     full="vertical"
   >
-    <Box justify="center" margin="small" direction="column">
+    <Button alignSelf="start" onClick={onClose} icon={<Close />}></Button>
+    <Box pad="large" justify="center" margin="small" direction="column">
       <Paragraph textAlign="center">Refer a Friend!</Paragraph>
       <Box>
-        <TextInput></TextInput>
+        <TextInput onChange={onReferrerChange} value={referrer}></TextInput>
         <Text margin={{ "left": "small" }}>Your email</Text>
       </Box>
       {referrals.map((referral, index) => 
         <Box direction="row" key={index} margin="xsmall">
-          <TextInput onChange={onChange.bind(this, index)} value={referral}></TextInput>
-          <Button onClick={removeField.bind(this, index)} style={{ padding: 0 }} icon={<FormSubtract />}></Button> 
+          <TextInput onChange={onReferralChange.bind(this, index)} value={referral}></TextInput>
+          <Button onClick={removeField.bind(this, index)} style={{ padding: 2 }} icon={<FormSubtract />}></Button> 
         </Box>
       )}
       <Button onClick={addField} icon={<AddCircle />}></Button>
+      <Box direction="row" justify="between">
+        <Button label="Submit" onClick={onReferralSubmit}></Button>
+        <Button label="Cancel" onClick={onClose}></Button>
+      </Box>
     </Box>
   </Layer>
 );
