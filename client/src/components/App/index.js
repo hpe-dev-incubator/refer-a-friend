@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { Grommet } from 'grommet';
+import grommet from './theme';
+import SubmissionManager from '../SubmissionManager';
 
 class App extends Component {
   render() {
     return (
-      <div>
-        HELLO!
-      </div>
+      <Grommet theme={grommet}>
+        <SubmissionManager />
+      </Grommet>
     );
   }
 }
