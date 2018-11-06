@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Text, Image, Heading, Paragraph } from 'grommet';
-import { Background, Header, Hexagon } from './styles';
+import { Box, Text, Paragraph } from 'grommet';
+import { Header, Hexagon } from './styles';
 import SubmissionsManager from '../SubmissionsManager';
 
 const Layout = () => (

@@ -1,4 +1,4 @@
-import { Box, Text, Paragraph } from 'grommet';
+import { Box, Paragraph } from 'grommet';
 import styled from 'styled-components';
 
 export const Background = styled(Box)`

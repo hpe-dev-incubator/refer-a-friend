@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Heading, Text, FormField, Paragraph, Button, TextInput } from 'grommet';
+import { Box, Text, FormField, Button, TextInput } from 'grommet';
 import { CheckHeader } from './styles';
 
 class SubmissionsManager extends Component {
