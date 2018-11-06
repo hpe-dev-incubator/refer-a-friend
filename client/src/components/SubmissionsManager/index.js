@@ -9,11 +9,51 @@ class SubmissionsManager extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      referrals: []
+      referrals: [],
+      error: ''
     }
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  onChange(event) {
+    const email = event.target.value
+    this.setState({ email: email, error: '' });
+  }
+  onSubmit() {
+    const { email } = this.state;
+    if(email.trim().length === 0) {
+      this.setState({ error: 'Cannot be blank'})
+      return;
+    }
+    fetch('/api/check-in', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email })
+    })
+    .then(response => console.log(response));
   }
 
+  /*   onReferralSubmit() {
+    const { referrals, referrer } = this.state
+    const filtered = referrals.filter((referral) => referral);
+    if(referrer.trim().length === 0){
+      return;
+    }
+    fetch('/api/refer-a-friend', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ referrer: referrer, referrals: filtered })
+    })
+    .then(response => console.log(response));
+  } */
   render() {
+    const { error } = this.state;
     return(
       <Box pad={{ "top": "large" }} direction="column">
       {/* Check-in Text, Form, and Button */}
@@ -38,8 +78,12 @@ class SubmissionsManager extends Component {
           >
             A friend referred you to us? Check in now.
           </Text>
-          <FormField label="Email Address" fill={true}>
-            <TextInput></TextInput>
+          <FormField 
+            label="Email Address" 
+            fill={true}
+            error={error}
+          >
+            <TextInput onChange={this.onChange}></TextInput>
           </FormField>
           <Box 
             background="brand" 
@@ -49,6 +93,7 @@ class SubmissionsManager extends Component {
             <Button 
               fill={true} 
               margin={{ "top": "xsmall", "bottom": "xsmall" }}
+              onClick={this.onSubmit}
             >
               <Text 
                 size="xlarge" 
