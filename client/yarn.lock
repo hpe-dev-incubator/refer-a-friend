@@ -4243,6 +4243,11 @@ grommet-icons@^3.2.0:
   resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-3.2.0.tgz#a2996c59177d93da14db52301551a9dad90dec69"
   integrity sha512-D4YBzq0VWF+rU3ynviR0EVBCqmobJxqI8+dmgpG+HKOSDyKuUOxTvD91Esb0wcRfTZwX1NVCbhjLak3CGStl9g==
 
+grommet-theme-hpe@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/grommet-theme-hpe/-/grommet-theme-hpe-0.4.0.tgz#55e3c3379e08cf0846883be652ae06dff741644d"
+  integrity sha512-J8b3m2nUITm3nk5nRqM2mJXXVmSFi8LsVUDCYaC68ywKMGEwE335OpptbWLCFQ+1tcqWjE7+sTgSjbaPRJ7yyg==
+
 grommet@^2.0.0-rc:
   version "2.0.0-rc"
   resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.0.0-rc.tgz#8c35d69217fca309b755b4754adab4441b46aafa"

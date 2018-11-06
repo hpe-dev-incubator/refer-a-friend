@@ -9,7 +9,7 @@ class SubmissionManager extends Component {
     this.state = {
       referrals: [],
       referrer: '',
-      checkin: 'Fet',
+      checkin: '',
       modalOpen: false
     };
     this.onModalOpen = this.onModalOpen.bind(this);
@@ -54,20 +54,24 @@ class SubmissionManager extends Component {
   }
 /* Handlers for referral and checkin for submit, sends data to API */
   onReferralSubmit() {
-    console.log('Referral!');
     const { referrals, referrer } = this.state
-    return fetch('/api/refer-a-friend', {
+    const filtered = referrals.filter((referral) => referral);
+    if(referrer.trim().length === 0){
+      return;
+    }
+    fetch('/api/refer-a-friend', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ referrer: referrer, referrals: referrals })
+      body: JSON.stringify({ referrer: referrer, referrals: filtered })
     })
-    .then(response => this.setState({ referrals: [], referrer: '', modalOpen: false }));
+    .then(response => console.log(response));
   }
   onCheckinSubmit() {
     console.log('Check-in!');
+    const
   }
   render() {
     const { modalOpen, referrals, referrer } = this.state;

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Grommet } from 'grommet';
-import grommet from './theme';
-import SubmissionManager from '../SubmissionManager';
+import { hpe } from 'grommet-theme-hpe';
+import Layout from '../Layout';
+import { Background } from './styles'
 
 class App extends Component {
   render() {
     return (
-      <Grommet theme={grommet}>
-        <SubmissionManager />
-      </Grommet>
+      <Background>
+        <Grommet theme={hpe}>
+          <Layout />
+        </Grommet>
+      </Background>
     );
   }
 }
