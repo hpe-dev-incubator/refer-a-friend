@@ -4,8 +4,8 @@ import { Close } from 'grommet-icons';
 import { Header } from './styles';
 
 class SubmissionsManager extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       firstName: '',
       lastName: '',
@@ -62,7 +62,7 @@ class SubmissionsManager extends Component {
       },
       body: JSON.stringify({ name: `${firstName} ${lastName}`, email: email, referrals: referrals })
     })
-    .then(response => console.log(response));
+    .then(response => this.props.history.push('/thankyou'));
   }
   onSubmit() {
     const { email } = this.state;
@@ -221,7 +221,8 @@ const ReferralForm = ({ email, onClose, error, onReferralChange, onNameChange, o
         alignSelf="end"
         margin={{ "top": "small", "right": "large" }}
         onClick={onClose}
-      ></Button>
+      >
+      </Button>
       <Box
         margin={{ "left": "xlarge", "right": "xlarge", "bottom": 'xlarge' }}
         direction="column"
@@ -229,27 +230,33 @@ const ReferralForm = ({ email, onClose, error, onReferralChange, onNameChange, o
         flex={false}
       >
         <Header>Refer 3 Hackers By Email</Header>
-        <FormField
-          label="Email Address" 
-          fill="horizontal"
-          error={error}
-        >
-          <TextInput onChange={onReferralChange.bind(this, 0)} />
-        </FormField>
-        <FormField 
-          label="Email Address" 
-          fill="horizontal"
-          error={error}
-        >
-          <TextInput onChange={onReferralChange.bind(this, 1)} />
-        </FormField>
-        <FormField 
-          label="Email Address" 
-          fill="horizontal"
-          error={error}
-        >
-          <TextInput onChange={onReferralChange.bind(this, 2)} />
-        </FormField>
+        <Box>
+          <FormField
+            label="Email Address" 
+            fill="horizontal"
+            error={error}
+          >
+            <TextInput onChange={onReferralChange.bind(this, 0)} />
+          </FormField>
+        </Box>
+        <Box>
+          <FormField 
+            label="Email Address" 
+            fill="horizontal"
+            error={error}
+          >
+            <TextInput onChange={onReferralChange.bind(this, 1)} />
+          </FormField>
+        </Box>
+        <Box>
+          <FormField 
+            label="Email Address" 
+            fill="horizontal"
+            error={error}
+          >
+            <TextInput onChange={onReferralChange.bind(this, 2)} />
+          </FormField>
+        </Box>
         <Header margin={{ "bottom": "small" }}>How can we reach you?</Header>
         <Text margin={{ "bottom": "medium" }}>You want to win? Leave your email address too.</Text>
         <FormField
