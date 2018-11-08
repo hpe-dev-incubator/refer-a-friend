@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Box } from 'grommet';
+
 import CheckIn from '../CheckIn';
 import CheckedIn from '../CheckedIn';
 import ReferAHacker from '../ReferAHacker';
@@ -54,6 +55,12 @@ class SubmissionsManager extends Component {
     this.setState({ modalOpen: false })
   }
   /* Handlers for submitting check-in and referrals */
+  handleErrors(response) {
+    if(!response.success) {
+      throw Error(response.error);
+    }
+    return response;
+  }
   onReferralSubmit() {
     const { email, firstName, lastName, referrals } = this.state;
     fetch('/api/refer-a-friend', {
@@ -64,7 +71,9 @@ class SubmissionsManager extends Component {
       },
       body: JSON.stringify({ name: `${firstName} ${lastName}`, email: email, referrals: referrals })
     })
-    .then(response => this.props.history.push('/thankyou'));
+    .then(response => response.json())
+    .then(response => this.handleErrors(response))
+    .catch(error => console.log(error))
   }
   onCheckInSubmit() {
     const { email } = this.state;
@@ -80,7 +89,10 @@ class SubmissionsManager extends Component {
       },
       body: JSON.stringify({ email: email })
     })
-    .then(response => this.setState({ checkedIn: true }));
+    .then(response => response.json())
+    .then(response => this.handleErrors(response))
+    .then(this.setState({ checkedIn: true }))
+    .catch(error => console.log(error));
   }
   render() {
     const { error, checkedIn, modalOpen, email } = this.state;
