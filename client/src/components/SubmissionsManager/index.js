@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Box, Text, FormField, Button, TextInput, Paragraph, Layer } from 'grommet';
-import { Close } from 'grommet-icons';
-import { Header } from './styles';
+import { Box } from 'grommet';
+import CheckIn from '../CheckIn';
+import CheckedIn from '../CheckedIn';
+import ReferAHacker from '../ReferAHacker';
+import ReferralForm from '../ReferralForm';
 
 class SubmissionsManager extends Component {
   constructor(props) {
@@ -19,7 +21,7 @@ class SubmissionsManager extends Component {
     this.onClose = this.onClose.bind(this);
 
     this.onReferralSubmit = this.onReferralSubmit.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onCheckInSubmit = this.onCheckInSubmit.bind(this);
 
     this.onReferralChange = this.onReferralChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
@@ -64,7 +66,7 @@ class SubmissionsManager extends Component {
     })
     .then(response => this.props.history.push('/thankyou'));
   }
-  onSubmit() {
+  onCheckInSubmit() {
     const { email } = this.state;
     if(email.trim().length === 0) {
       this.setState({ error: 'Cannot be blank'})
@@ -92,7 +94,7 @@ class SubmissionsManager extends Component {
         basis="1/2"
         overflow="hidden"
       >
-        {checkedIn ? <CheckedIn /> : <Checkin  error={error} onChange={this.onEmailChange} onSubmit={this.onSubmit}/>}
+        {checkedIn ? <CheckedIn /> : <CheckIn  error={error} onChange={this.onEmailChange} onSubmit={this.onCheckInSubmit}/>}
         <ReferAHacker checkedIn={checkedIn} onOpen={this.onOpen}/>
         {layer}
       </Box>
@@ -101,204 +103,3 @@ class SubmissionsManager extends Component {
 }
 
 export default SubmissionsManager;
-
-const Checkin = ({ error, onChange, onSubmit }) => (
-  <Box 
-  elevation="medium"
-  pad={{ "top": "xsmall", "bottom": "large", "left": "large", "right": "large" }} 
-  margin={{ "top": "xlarge" , "left": "xlarge", "right": "xlarge"}} 
-  direction="column" 
-  round="small" 
-  background="white" 
-  align="start"
-  >
-    <Header 
-      margin={{ "top": "large", "bottom": "small" }}
-    >
-      Check-in
-    </Header>
-    <Text 
-      size="medium" 
-      color="neutral-2" 
-      margin={{ "bottom": "small", "right": "xlarge" }}
-    >
-      A friend referred you to us? Check in now.
-    </Text>
-    <FormField 
-      label="Email Address" 
-      fill={true}
-      error={error}
-    >
-      <TextInput onChange={onChange} />
-    </FormField>
-    <Box 
-      background="brand" 
-      round="xsmall" 
-      margin={{ "top": "medium" }}
-    >
-      <Button 
-        fill={true} 
-        margin={{ "top": "xsmall", "bottom": "xsmall" }}
-        onClick={onSubmit}
-      >
-        <Text 
-          size="xlarge" 
-          weight="bold" 
-          margin={{ "left": "large", "right": "large"}}
-        >
-          Check in
-        </Text>
-      </Button>
-    </Box>
-  </Box>
-)
-
-const CheckedIn = () => (
-  <Box
-    pad={{ "top": "xsmall", "bottom": "large", "left": "large", "right": "large" }} 
-    margin={{ "top": "xlarge" , "left": "large", "right": "medium"}} 
-    direction="column" 
-    align="start"
-  >
-    <Paragraph>We got you! You took your friend one step closer to winning a fantastic prize!</Paragraph>
-    <Paragraph>Want to win your own prize? Refer 3 hackers to us.</Paragraph>
-  </Box>
-)
-
-const ReferAHacker = ({ checkedIn, onOpen }) => (
-  <Box
-    align="start"
-    margin={{ "top": "large", "left": "xlarge", "bottom": "small" }}
-    background={checkedIn ? "white": "neutral-1"}
-    round={{ "size": "small", "corner": "left" }}
-    fill="horizontal"
-  >
-    <Header
-      margin={{ "bottom": "small", "left": "large"}}
-    >
-      Refer a Hacker
-    </Header>
-      <Text 
-        size="medium" 
-        margin={{ "bottom": "medium", "left": "large" }}
-      >
-        Participate in our referral program to win great prizes.
-      </Text>
-      <Box 
-      background="brand" 
-      round="xsmall"
-      margin={{ "bottom": "small", "left": "large" }} 
-    >
-      <Button 
-        pad="small" 
-        margin={{ "top": "small", "bottom": "small" }}
-        onClick={onOpen}
-      >
-        <Text 
-          size="xlarge" 
-          weight="bold" 
-          margin={{ "left": "medium", "right": "medium"}}
-        >
-          Refer a Hacker
-        </Text>
-      </Button>
-    </Box>
-  </Box>
-);
-
-const ReferralForm = ({ email, onClose, error, onReferralChange, onNameChange, onEmailChange, onSubmit }) => (
-  <Layer
-    modal={true}
-    onEsc={onClose}
-    position="right"
-    flex={false}
-  >
-    <Box
-      overflow="scroll"
-    >
-      <Button 
-        icon={<Close />} 
-        alignSelf="end"
-        margin={{ "top": "small", "right": "large" }}
-        onClick={onClose}
-      >
-      </Button>
-      <Box
-        margin={{ "left": "xlarge", "right": "xlarge", "bottom": 'xlarge' }}
-        direction="column"
-        align="start"
-        flex={false}
-      >
-        <Header>Refer 3 Hackers By Email</Header>
-        <Box>
-          <FormField
-            label="Email Address" 
-            fill="horizontal"
-            error={error}
-          >
-            <TextInput onChange={onReferralChange.bind(this, 0)} />
-          </FormField>
-        </Box>
-        <Box>
-          <FormField 
-            label="Email Address" 
-            fill="horizontal"
-            error={error}
-          >
-            <TextInput onChange={onReferralChange.bind(this, 1)} />
-          </FormField>
-        </Box>
-        <Box>
-          <FormField 
-            label="Email Address" 
-            fill="horizontal"
-            error={error}
-          >
-            <TextInput onChange={onReferralChange.bind(this, 2)} />
-          </FormField>
-        </Box>
-        <Header margin={{ "bottom": "small" }}>How can we reach you?</Header>
-        <Text margin={{ "bottom": "medium" }}>You want to win? Leave your email address too.</Text>
-        <FormField
-          label="First Name" 
-          fill="horizontal"
-          error={error}
-        >
-          <TextInput  onChange={onNameChange.bind(this, 'first')}/>
-        </FormField>
-        <FormField 
-          label="Last Name" 
-          fill="horizontal"
-          error={error}
-        >
-          <TextInput  onChange={onNameChange.bind(this, 'last')}/>
-        </FormField>
-        <FormField 
-          label="Email Address" 
-          fill="horizontal"
-          error={error}
-        >
-          <TextInput value={email} onChange={onEmailChange}/>
-        </FormField>
-        <Box 
-          background="brand" 
-          round="xsmall" 
-          margin={{ "top": "medium" }}
-        >
-          <Button  
-            margin={{ "top": "xsmall", "bottom": "xsmall" }}
-            onClick={onSubmit}
-          >
-            <Text 
-              size="xlarge" 
-              weight="bold" 
-              margin={{ "left": "large", "right": "large"}}
-            >
-              Submit
-            </Text>
-          </Button>
-        </Box>
-      </Box>
-    </Box>
-  </Layer>
-)
