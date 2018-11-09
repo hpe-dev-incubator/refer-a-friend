@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
+    "username": "ianbovardhpe",
     "password": null,
-    "database": "database_development",
+    "database": "refer_a_friend_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

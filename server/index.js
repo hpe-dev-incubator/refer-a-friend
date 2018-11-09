@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const port  = process.env.PORT || 3000;
+
+const db = require('./models');
+console.log(db);
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,4 +30,6 @@ app.post('/api/check-in', (req, res) => {
   res.send({ success: true });
 });
 
-app.listen(port, () => console.log(`listening on port ${port}...`));
+db.sequelize.sync().then(() => {
+  app.listen(port, () => console.log(`listening on port ${port}`))
+});
