@@ -3,10 +3,14 @@ import { Box } from 'grommet';
 import SubmissionsManager from '../SubmissionsManager';
 import EventDescription from '../EventDescription';
 
-const Layout = (props) => (
-  <Box overflow="hidden" direction="row">
+const Layout = ({ history, ...rest }) => (
+  <Box 
+    overflow="hidden" 
+    direction="row"
+    {...rest}
+  >
     <EventDescription />
-    <SubmissionsManager history={props.history}/>
+    <SubmissionsManager history={history}/>
   </Box>
 )
 

@@ -6,7 +6,7 @@ const ThankYou = (props) => (
     align="center"
     justify="center" 
     direction="column" 
-    style={{ "backgroundColor": "rgb(56, 77, 92)" }}
+    style={{ backgroundColor: "rgb(56, 77, 92)", minHeight: "100vh" }}
   >
     <Heading color="white">
       Thank You!

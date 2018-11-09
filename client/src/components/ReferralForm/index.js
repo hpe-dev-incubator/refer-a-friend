@@ -3,15 +3,15 @@ import { Layer, Box, Button, TextInput, FormField, Text } from 'grommet';
 import { Close } from 'grommet-icons';
 import { Header } from './styles'; 
 
-const ReferralForm = ({ email, onClose, error, onReferralChange, onNameChange, onEmailChange, onSubmit }) => (
+const ReferralForm = ({ email, firstName, lastName, onClose, error, onReferralChange, onNameChange, onEmailChange, onSubmit }) => (
   <Layer
     modal={true}
     onEsc={onClose}
     position="right"
-    flex={false}
   >
     <Box
       overflow="scroll"
+      background="light-1"
     >
       <Button 
         icon={<Close />} 
@@ -27,53 +27,41 @@ const ReferralForm = ({ email, onClose, error, onReferralChange, onNameChange, o
         flex={false}
       >
         <Header>Refer 3 Hackers By Email</Header>
-        <Box>
-          <FormField
-            label="Email Address" 
-            fill="horizontal"
-            error={error}
-          >
-            <TextInput onChange={onReferralChange.bind(this, 0)} />
-          </FormField>
-        </Box>
-        <Box>
-          <FormField 
-            label="Email Address" 
-            fill="horizontal"
-            error={error}
-          >
-            <TextInput onChange={onReferralChange.bind(this, 1)} />
-          </FormField>
-        </Box>
-        <Box>
-          <FormField 
-            label="Email Address" 
-            fill="horizontal"
-            error={error}
-          >
-            <TextInput onChange={onReferralChange.bind(this, 2)} />
-          </FormField>
-        </Box>
+        <FormField
+          label="Email Address" 
+          fill="horizontal"
+        >
+          <TextInput onChange={onReferralChange.bind(this, 0)} />
+        </FormField>
+        <FormField 
+          label="Email Address" 
+          fill="horizontal"
+        >
+          <TextInput onChange={onReferralChange.bind(this, 1)} />
+        </FormField>
+        <FormField 
+          label="Email Address" 
+          fill="horizontal"
+        >
+          <TextInput onChange={onReferralChange.bind(this, 2)} />
+        </FormField>
         <Header margin={{ "bottom": "small" }}>How can we reach you?</Header>
         <Text margin={{ "bottom": "medium" }}>You want to win? Leave your email address too.</Text>
         <FormField
           label="First Name" 
           fill="horizontal"
-          error={error}
         >
-          <TextInput  onChange={onNameChange.bind(this, 'first')}/>
+          <TextInput value={firstName} onChange={onNameChange.bind(this, 'first')}/>
         </FormField>
         <FormField 
           label="Last Name" 
           fill="horizontal"
-          error={error}
         >
-          <TextInput  onChange={onNameChange.bind(this, 'last')}/>
+          <TextInput value={lastName} onChange={onNameChange.bind(this, 'last')}/>
         </FormField>
         <FormField 
           label="Email Address" 
           fill="horizontal"
-          error={error}
         >
           <TextInput value={email} onChange={onEmailChange}/>
         </FormField>

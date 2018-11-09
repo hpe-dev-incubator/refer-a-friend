@@ -5,8 +5,8 @@ import Layout from '../Layout';
 class App extends Component {
   render() {
     return (
-        <Box>
-          <Layout history={this.props.history}/>
+        <Box style={{minHeight: "100vh" }}>
+          <Layout style={{flexGrow : 1}} history={this.props.history}/>
         </Box>
     );
   }

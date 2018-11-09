@@ -41,13 +41,16 @@ class SubmissionsManager extends Component {
   }
   onNameChange(label, event) {
     const name = event.target.value;
-    if(label === 'first') {
-      this.setState({ firstName: name });
-    }else{
-      this.setState({ lastName: name });
+    const re = /^[a-zA-Z]*$/
+    if(re.test(name)) {
+      if(label === 'first') {
+        this.setState({ firstName: name });
+      }else{
+        this.setState({ lastName: name });
+      }
     }
   }
-  /* Handlers to open and close modal */
+  /* Handlers to open and close modal and to reset state */
   onOpen() {
     this.setState({ modalOpen: true });
   }
@@ -73,6 +76,10 @@ class SubmissionsManager extends Component {
     })
     .then(response => response.json())
     .then(response => this.handleErrors(response))
+    .then(() => {
+      this.setState({ email: '', firstName: '', lastName: '', referrals: [] });
+      this.props.history.push('/thankyou');
+    })
     .catch(error => console.log(error))
   }
   onCheckInSubmit() {
@@ -91,14 +98,14 @@ class SubmissionsManager extends Component {
     })
     .then(response => response.json())
     .then(response => this.handleErrors(response))
-    .then(this.setState({ checkedIn: true }))
+    .then(this.setState({ checkedIn: true, email: '' }))
     .catch(error => console.log(error));
   }
   render() {
-    const { error, checkedIn, modalOpen, email } = this.state;
+    const { error, checkedIn, modalOpen, email, firstName, lastName } = this.state;
     let layer;
     if(modalOpen) {
-      layer = <ReferralForm email={email} onClose={this.onClose} error={error} onReferralChange={this.onReferralChange} onSubmit={this.onReferralSubmit} onNameChange={this.onNameChange} onEmailChange={this.onEmailChange}/>
+      layer = <ReferralForm email={email} firstName={firstName} lastName={lastName} onClose={this.onClose} error={error} onReferralChange={this.onReferralChange} onSubmit={this.onReferralSubmit} onNameChange={this.onNameChange} onEmailChange={this.onEmailChange}/>
     }
     return(
       <Box       
