@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const port  = process.env.PORT || 3000;
 
 const db = require('./models');
+const referrers = db.Referrers;
+const referrals = db.Referrals;
 console.log(db);
 
 const app = express();
@@ -19,7 +21,19 @@ app.post('/api/refer-a-friend', (req, res) => {
   if(!req.body.email) {
     res.status(400).send({ success: false, error: 'Request body is missing an email property' })
   }
-  res.send({ success: true });
+  const { name, email, referrals } = req.body;
+  referrers.findOrCreate({ where: { name: name, email: email }})
+  .spread((referrer, created) => {
+    console.log(referrer.get({
+      plain: true
+    }))
+    if(created) {
+      res.send({ success: true });
+    }else{
+      console.log(created);
+      res.send({ success: false, error: 'Name and/or email already exists' });
+    }
+  })
 });
 
 app.post('/api/check-in', (req, res) => {

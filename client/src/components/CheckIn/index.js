@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text, FormField, TextInput, Button } from 'grommet';
 import { Header } from './styles';
 
-const CheckIn = ({ error, onChange, onSubmit }) => (
+const CheckIn = ({ errors, onChange, onSubmit }) => (
   <Box 
   elevation="medium"
   pad={{ "top": "xsmall", "bottom": "large", "left": "large", "right": "large" }} 
@@ -27,7 +27,7 @@ const CheckIn = ({ error, onChange, onSubmit }) => (
     <FormField 
       label="Email Address" 
       fill={true}
-      error={error}
+      error={errors}
     >
       <TextInput onChange={onChange} />
     </FormField>

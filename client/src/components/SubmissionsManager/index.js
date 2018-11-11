@@ -13,8 +13,16 @@ class SubmissionsManager extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      referrals: [],
-      error: '',
+      referrals: ['', '', ''],
+      errors: { 
+        emailCheckin: '', 
+        firstName: '', 
+        lastName: '',
+        emailRefer: '', 
+        ref1: '', 
+        ref2: '', 
+        ref3: '' 
+      },
       checkedIn: false,
       modalOpen: false
     }
@@ -31,41 +39,105 @@ class SubmissionsManager extends Component {
   /* Handlers for check-in email and refferal emails */
   onEmailChange(event) {
     const email = event.target.value;
-    this.setState({ email: email, error: '' });
+    const { errors } = this.state;
+    errors.emailCheckin = '';
+    errors.emailRefer = '';
+    this.setState({ email: email, errors: errors });
   }
   onReferralChange(index, event) {
     const referral = event.target.value;
-    const { referrals } = this.state;
+    const { referrals, errors } = this.state;
     referrals[index] = referral;
-    this.setState({ referrals: referrals })
+    errors.ref1 = '';
+    errors.ref2 = '';
+    errors.ref3 = '';
+    this.setState({ referrals: referrals, errors: errors });
   }
   onNameChange(label, event) {
     const name = event.target.value;
     const re = /^[a-zA-Z]*$/
+    const { errors } = this.state;
+    errors.firstName = '';
+    errors.lastName = '';
     if(re.test(name)) {
       if(label === 'first') {
-        this.setState({ firstName: name });
+        this.setState({ firstName: name, errors: errors });
       }else{
-        this.setState({ lastName: name });
+        this.setState({ lastName: name, errors: errors });
       }
     }
   }
-  /* Handlers to open and close modal and to reset state */
+  /* Handlers to open and close modal */
   onOpen() {
     this.setState({ modalOpen: true });
   }
   onClose() {
-    this.setState({ modalOpen: false })
+    this.setState({ modalOpen: false });
   }
-  /* Handlers for submitting check-in and referrals */
+  /* Handler for submitting check-in and referrals. Checks server response for success property */
   handleErrors(response) {
     if(!response.success) {
       throw Error(response.error);
     }
     return response;
   }
+  /* Handler for email validation */
+  handleEmailValidation(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
   onReferralSubmit() {
-    const { email, firstName, lastName, referrals } = this.state;
+    const { email, firstName, lastName, referrals, errors } = this.state;
+    if(referrals[0].trim().length === 0) {
+      errors.ref1 = 'Cannot be blank';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(!this.handleEmailValidation(referrals[0])) {
+      errors.ref1 = 'Must be a valid email address';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(referrals[1].trim().length === 0) {
+      errors.ref2 = 'Cannot be blank';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(!this.handleEmailValidation(referrals[1])) {
+      errors.ref2 = 'Must be a valid email address';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(referrals[2].trim().length === 0) {
+      errors.ref3 = 'Cannot be blank';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(!this.handleEmailValidation(referrals[2])) {
+      errors.ref3 = 'Must be a valid email address';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(firstName.trim().length === 0) {
+      errors.firstName = 'Cannot be blank.';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(lastName.trim().length === 0) {
+      errors.lastName = 'Cannot be blank.';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(email.trim().length === 0) {
+      errors.emailRefer = 'Cannot be blank.';
+      this.setState({ errors: errors });
+      return;
+    }
+    if(!this.handleEmailValidation(email)) {
+      errors.emailRefer = 'Must be a valid email address';
+      this.setState({ errors: errors });
+      return;
+    }
     fetch('/api/refer-a-friend', {
       method: 'POST',
       headers: {
@@ -76,16 +148,24 @@ class SubmissionsManager extends Component {
     })
     .then(response => response.json())
     .then(response => this.handleErrors(response))
-    .then(() => {
+    .then((response) => {
+      console.log('RES!',response);
       this.setState({ email: '', firstName: '', lastName: '', referrals: [] });
       this.props.history.push('/thankyou');
     })
     .catch(error => console.log(error))
   }
   onCheckInSubmit() {
-    const { email } = this.state;
+    const { email, errors } = this.state;
+    console.log(this.handleEmailValidation(email));
     if(email.trim().length === 0) {
-      this.setState({ error: 'Cannot be blank'})
+      errors.emailCheckin = 'Cannot be blank.'
+      this.setState({ error: errors})
+      return;
+    }
+    if(!this.handleEmailValidation(email)) {
+      errors.emailCheckin = 'Must be a valid email address';
+      this.setState({ errors: errors });
       return;
     }
     fetch('/api/check-in', {
@@ -102,10 +182,10 @@ class SubmissionsManager extends Component {
     .catch(error => console.log(error));
   }
   render() {
-    const { error, checkedIn, modalOpen, email, firstName, lastName } = this.state;
+    const { errors, checkedIn, modalOpen, email, firstName, lastName } = this.state;
     let layer;
     if(modalOpen) {
-      layer = <ReferralForm email={email} firstName={firstName} lastName={lastName} onClose={this.onClose} error={error} onReferralChange={this.onReferralChange} onSubmit={this.onReferralSubmit} onNameChange={this.onNameChange} onEmailChange={this.onEmailChange}/>
+      layer = <ReferralForm email={email} firstName={firstName} lastName={lastName} onClose={this.onClose} errors={errors} onReferralChange={this.onReferralChange} onSubmit={this.onReferralSubmit} onNameChange={this.onNameChange} onEmailChange={this.onEmailChange}/>
     }
     return(
       <Box       
@@ -113,7 +193,7 @@ class SubmissionsManager extends Component {
         basis="1/2"
         overflow="hidden"
       >
-        {checkedIn ? <CheckedIn /> : <CheckIn  error={error} onChange={this.onEmailChange} onSubmit={this.onCheckInSubmit}/>}
+        {checkedIn ? <CheckedIn /> : <CheckIn  errors={errors.emailCheckin} onChange={this.onEmailChange} onSubmit={this.onCheckInSubmit}/>}
         <ReferAHacker checkedIn={checkedIn} onOpen={this.onOpen}/>
         {layer}
       </Box>

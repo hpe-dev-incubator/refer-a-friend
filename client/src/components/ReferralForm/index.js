@@ -3,7 +3,7 @@ import { Layer, Box, Button, TextInput, FormField, Text } from 'grommet';
 import { Close } from 'grommet-icons';
 import { Header } from './styles'; 
 
-const ReferralForm = ({ email, firstName, lastName, onClose, error, onReferralChange, onNameChange, onEmailChange, onSubmit }) => (
+const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralChange, onNameChange, onEmailChange, onSubmit}) => (
   <Layer
     modal={true}
     onEsc={onClose}
@@ -30,18 +30,21 @@ const ReferralForm = ({ email, firstName, lastName, onClose, error, onReferralCh
         <FormField
           label="Email Address" 
           fill="horizontal"
+          error={errors.ref1}
         >
           <TextInput onChange={onReferralChange.bind(this, 0)} />
         </FormField>
         <FormField 
           label="Email Address" 
           fill="horizontal"
+          error={errors.ref2}
         >
           <TextInput onChange={onReferralChange.bind(this, 1)} />
         </FormField>
         <FormField 
           label="Email Address" 
           fill="horizontal"
+          error={errors.ref3}
         >
           <TextInput onChange={onReferralChange.bind(this, 2)} />
         </FormField>
@@ -50,27 +53,30 @@ const ReferralForm = ({ email, firstName, lastName, onClose, error, onReferralCh
         <FormField
           label="First Name" 
           fill="horizontal"
+          error={errors.firstName}
         >
           <TextInput value={firstName} onChange={onNameChange.bind(this, 'first')}/>
         </FormField>
         <FormField 
           label="Last Name" 
           fill="horizontal"
+          error={errors.lastName}
         >
           <TextInput value={lastName} onChange={onNameChange.bind(this, 'last')}/>
         </FormField>
         <FormField 
           label="Email Address" 
           fill="horizontal"
+          error={errors.emailRefer}
         >
-          <TextInput value={email} onChange={onEmailChange}/>
+          <TextInput  value={email} onChange={onEmailChange}/>
         </FormField>
         <Box 
           background="brand" 
           round="xsmall" 
           margin={{ "top": "medium" }}
         >
-          <Button  
+          <Button
             margin={{ "top": "xsmall", "bottom": "xsmall" }}
             onClick={onSubmit}
           >
