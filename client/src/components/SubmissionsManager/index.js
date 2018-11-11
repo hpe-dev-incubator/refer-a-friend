@@ -31,6 +31,7 @@ class SubmissionsManager extends Component {
 
     this.onReferralSubmit = this.onReferralSubmit.bind(this);
     this.onCheckInSubmit = this.onCheckInSubmit.bind(this);
+    this.handleErrors = this.handleErrors.bind(this);
 
     this.onReferralChange = this.onReferralChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
@@ -76,8 +77,16 @@ class SubmissionsManager extends Component {
   }
   /* Handler for submitting check-in and referrals. Checks server response for success property */
   handleErrors(response) {
+    const { errors } = this.state;
     if(!response.success) {
-      throw Error(response.error);
+      switch(response.type) {
+        case 'Email Ref':
+          errors.emailRefer = response.error;
+          this.setState({ errors: errors })
+          return false;
+        default:
+        throw Error(response.error);
+      }
     }
     return response;
   }
@@ -86,6 +95,7 @@ class SubmissionsManager extends Component {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
+  /* Handlers for Referral and Check-in submit */
   onReferralSubmit() {
     const { email, firstName, lastName, referrals, errors } = this.state;
     if(referrals[0].trim().length === 0) {
@@ -150,14 +160,17 @@ class SubmissionsManager extends Component {
     .then(response => this.handleErrors(response))
     .then((response) => {
       console.log('RES!',response);
-      this.setState({ email: '', firstName: '', lastName: '', referrals: [] });
-      this.props.history.push('/thankyou');
+      if(response) {
+        this.setState({ email: '', firstName: '', lastName: '', referrals: [] });
+        this.props.history.push('/thankyou');
+      }else {
+        return;
+      }
     })
     .catch(error => console.log(error))
   }
   onCheckInSubmit() {
     const { email, errors } = this.state;
-    console.log(this.handleEmailValidation(email));
     if(email.trim().length === 0) {
       errors.emailCheckin = 'Cannot be blank.'
       this.setState({ error: errors})
@@ -178,7 +191,7 @@ class SubmissionsManager extends Component {
     })
     .then(response => response.json())
     .then(response => this.handleErrors(response))
-    .then(this.setState({ checkedIn: true, email: '' }))
+    .then(this.setState({ checkedIn: true }))
     .catch(error => console.log(error));
   }
   render() {

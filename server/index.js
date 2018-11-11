@@ -11,27 +11,23 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/api/refer-a-friend', (req, res) => {
-  console.log('THIS IS THE REFER REQ', req.body);
   if(!req.body.name) {
-    res.status(400).send({ success: false, error: 'Request body is missing a name property.' })
+    res.status(400).send({ success: false, type: 'Critical', error: 'Request body is missing a name property.' })
   }
   if(!req.body.referrals) {
-    res.status(400).send({ success: false, error: 'Reqeust body is missing a referrals property' })
+    res.status(400).send({ success: false, type: 'Critical', error: 'Reqeust body is missing a referrals property' })
   }
   if(!req.body.email) {
-    res.status(400).send({ success: false, error: 'Request body is missing an email property' })
+    res.status(400).send({ success: false, type: 'Critical', error: 'Request body is missing an email property' })
   }
   const { name, email, referrals } = req.body;
-  referrers.findOrCreate({ where: { name: name, email: email }})
-  .spread((referrer, created) => {
-    console.log(referrer.get({
-      plain: true
-    }))
-    if(created) {
-      res.send({ success: true });
+  referrers.find({ where: { email: email }})
+  .then(referrer => {
+    if(referrer) {
+      res.send({ success: false, type: 'Email Ref', error: 'Email aleady exists.' })
     }else{
-      console.log(created);
-      res.send({ success: false, error: 'Name and/or email already exists' });
+      referrers.create({ name: name, email: email })
+      .then(referrer => res.send({ success: true }));
     }
   })
 });
