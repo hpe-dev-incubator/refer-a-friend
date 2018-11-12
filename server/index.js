@@ -12,13 +12,13 @@ app.use(bodyParser.json());
 
 app.post('/api/refer-a-friend', (req, res) => {
   if(!req.body.name) {
-    res.status(400).send({ success: false, type: 'Critical', error: 'Request body is missing a name property.' })
+    res.status(400).send({ success: false, type: 'Critical', error: 'Request body is missing a name property.' });
   }
   if(!req.body.referrals) {
     res.status(400).send({ success: false, type: 'Critical', error: 'Reqeust body is missing a referrals property' })
   }
   if(!req.body.email) {
-    res.status(400).send({ success: false, type: 'Critical', error: 'Request body is missing an email property' })
+    res.status(400).send({ success: false, type: 'Critical', error: 'Request body is missing an email property' });
   }
   const { name, email, referrals } = req.body;
   Referrers.findOne({ where: {email: email}})
@@ -52,11 +52,38 @@ app.post('/api/refer-a-friend', (req, res) => {
 });
 
 app.post('/api/check-in', (req, res) => {
-  console.log('THIS IS THE CHECK IN REQ',req.body);
-  if(!req.body.email){
+  const { email } = req.body;
+  if(!email){
     res.status(400).send({ success: false, error: 'Request body is missing an email property.' });
   }
-  res.send({ success: true });
+  Referrals.findOne({ where: { email: email }})
+  .then(referral => {
+    if(!referral){
+      res.send({ success: false, type: 'Check-in', error: 'Email not found among referrals' });
+    }
+    if(referral.checkedIn) {
+      res.send({ success: false, type: 'Check-in', error: 'Already checked in with this email address.' })
+    }
+    return referral;
+  })
+  .then(referral => {
+    referral.update({ checkedIn: true })
+    .then(referral => {
+      Referrers.findOne({ where: { id: referral.referrerId }})
+      .then(referrer => {
+        referrer.increment('checkinCount', { by: 1 })
+        .then(referrer => {
+          if(referrer.checkinCount === 3){
+            console.log('SEND AN EMAIL WITH SENDGRID');
+            res.send({ success: true });
+          }else{
+            console.log('HERE!')
+            res.send({ success: true });
+          }
+        })
+      })
+    })
+  })
 });
 
 db.sequelize.sync().then(() => {

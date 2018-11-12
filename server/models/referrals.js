@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
-    checkedin: {
+    checkedIn: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false

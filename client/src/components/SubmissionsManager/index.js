@@ -81,6 +81,10 @@ class SubmissionsManager extends Component {
     if(!response.success) {
       console.log('RESPONSE',response);
       switch(response.type) {
+        case 'Check-in':
+          errors.emailCheckin = response.error;
+          this.setState({ errors: errors });
+          return false;
         case 'Email Ref':
           errors.emailRefer = response.error;
           this.setState({ errors: errors });
@@ -172,7 +176,6 @@ class SubmissionsManager extends Component {
     .then(response => response.json())
     .then(response => this.handleErrors(response))
     .then((response) => {
-      console.log('RES!',response);
       if(response) {
         this.setState({ email: '', firstName: '', lastName: '', referrals: [] });
         this.props.history.push('/thankyou');
@@ -204,7 +207,13 @@ class SubmissionsManager extends Component {
     })
     .then(response => response.json())
     .then(response => this.handleErrors(response))
-    .then(this.setState({ checkedIn: true }))
+    .then(response => {
+      if(response) {
+        this.setState({ checkedIn: true });
+      }else{
+        return;
+      }
+    })
     .catch(error => console.log(error));
   }
   render() {
