@@ -2,7 +2,7 @@
   "development": {
     "username": "ianbovardhpe",
     "password": null,
-    "database": "refer_a_friend_test",
+    "database": "refer_a_friend_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

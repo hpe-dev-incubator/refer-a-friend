@@ -1,17 +1,18 @@
 module.exports = function(sequelize, DataTypes) {
-  const referrals = sequelize.define('Referrals', {
-    name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    },
+  const Referrals = sequelize.define('referrals', {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     checkedin: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false
     }
-  });
-  return referrals;
+  })
+    Referrals.associate = (models) => {
+      Referrals.belongsTo(models.referrers);
+    }
+  return Referrals;
 }

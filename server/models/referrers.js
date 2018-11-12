@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  const referrers = sequelize.define('Referrers', {
+  const Referrers = sequelize.define('referrers', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -18,7 +18,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
+    },
+    prizeWinner : {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   });
-  return referrers;
-}
+  Referrers.associate = (models) => {
+    Referrers.hasMany(models.referrals, {
+      as: 'referredBy'
+    });
+  };
+  return Referrers;
+};

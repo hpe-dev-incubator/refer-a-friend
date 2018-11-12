@@ -30,21 +30,21 @@ const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralC
         <FormField
           label="Email Address" 
           fill="horizontal"
-          error={errors.ref1}
+          error={errors.ref0}
         >
           <TextInput onChange={onReferralChange.bind(this, 0)} />
         </FormField>
         <FormField 
           label="Email Address" 
           fill="horizontal"
-          error={errors.ref2}
+          error={errors.ref1}
         >
           <TextInput onChange={onReferralChange.bind(this, 1)} />
         </FormField>
         <FormField 
           label="Email Address" 
           fill="horizontal"
-          error={errors.ref3}
+          error={errors.ref2}
         >
           <TextInput onChange={onReferralChange.bind(this, 2)} />
         </FormField>

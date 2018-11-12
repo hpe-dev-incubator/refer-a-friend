@@ -19,9 +19,9 @@ class SubmissionsManager extends Component {
         firstName: '', 
         lastName: '',
         emailRefer: '', 
+        ref0: '', 
         ref1: '', 
-        ref2: '', 
-        ref3: '' 
+        ref2: '' 
       },
       checkedIn: false,
       modalOpen: false
@@ -49,9 +49,9 @@ class SubmissionsManager extends Component {
     const referral = event.target.value;
     const { referrals, errors } = this.state;
     referrals[index] = referral;
+    errors.ref0 = '';
     errors.ref1 = '';
     errors.ref2 = '';
-    errors.ref3 = '';
     this.setState({ referrals: referrals, errors: errors });
   }
   onNameChange(label, event) {
@@ -79,10 +79,23 @@ class SubmissionsManager extends Component {
   handleErrors(response) {
     const { errors } = this.state;
     if(!response.success) {
+      console.log('RESPONSE',response);
       switch(response.type) {
         case 'Email Ref':
           errors.emailRefer = response.error;
-          this.setState({ errors: errors })
+          this.setState({ errors: errors });
+          return false;
+        case 'ref0':
+          errors.ref0 = response.error;
+          this.setState({ errors: errors });
+          return false;
+        case 'ref1':
+          errors.ref1 = response.error;
+          this.setState({ errors: errors });
+          return false;
+        case 'ref2':
+          errors.ref2 = response.error;
+          this.setState({ errors: errors });
           return false;
         default:
         throw Error(response.error);
@@ -99,32 +112,32 @@ class SubmissionsManager extends Component {
   onReferralSubmit() {
     const { email, firstName, lastName, referrals, errors } = this.state;
     if(referrals[0].trim().length === 0) {
-      errors.ref1 = 'Cannot be blank';
+      errors.ref0 = 'Cannot be blank';
       this.setState({ errors: errors });
       return;
     }
     if(!this.handleEmailValidation(referrals[0])) {
-      errors.ref1 = 'Must be a valid email address';
+      errors.ref0 = 'Must be a valid email address';
       this.setState({ errors: errors });
       return;
     }
     if(referrals[1].trim().length === 0) {
-      errors.ref2 = 'Cannot be blank';
+      errors.ref1 = 'Cannot be blank';
       this.setState({ errors: errors });
       return;
     }
     if(!this.handleEmailValidation(referrals[1])) {
-      errors.ref2 = 'Must be a valid email address';
+      errors.ref1 = 'Must be a valid email address';
       this.setState({ errors: errors });
       return;
     }
     if(referrals[2].trim().length === 0) {
-      errors.ref3 = 'Cannot be blank';
+      errors.ref2 = 'Cannot be blank';
       this.setState({ errors: errors });
       return;
     }
     if(!this.handleEmailValidation(referrals[2])) {
-      errors.ref3 = 'Must be a valid email address';
+      errors.ref2 = 'Must be a valid email address';
       this.setState({ errors: errors });
       return;
     }

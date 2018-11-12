@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const port  = process.env.PORT || 3000;
 
 const db = require('./models');
-const referrers = db.Referrers;
-const referrals = db.Referrals;
+const Referrers = db.referrers;
+const Referrals = db.referrals;
 console.log(db);
 
 const app = express();
@@ -21,14 +21,33 @@ app.post('/api/refer-a-friend', (req, res) => {
     res.status(400).send({ success: false, type: 'Critical', error: 'Request body is missing an email property' })
   }
   const { name, email, referrals } = req.body;
-  referrers.find({ where: { email: email }})
+  Referrers.findOne({ where: {email: email}})
   .then(referrer => {
     if(referrer) {
-      res.send({ success: false, type: 'Email Ref', error: 'Email aleady exists.' })
+      res.send({ success: false, type: 'Email Ref', error: 'Email already exists' });
     }else{
-      referrers.create({ name: name, email: email })
-      .then(referrer => res.send({ success: true }));
+      return referrer;
     }
+  })
+  .then(() => {
+    referrals.map((email, index) => {
+      Referrals.findOne({ where: { email: email} })
+      .then(referral => {
+        if(referral) {
+          res.send({ success: false, type: `ref${index}`, error: 'Email already exists.' });
+        }
+      })
+    })
+  })
+  .then(() => {
+    Referrers.create({ email: email, name: name })
+    .then(referrer => {
+      console.log('THIS IS THE ID',referrer.id);
+      referrals.map(email => {
+        Referrals.create({ email: email, referrerId: referrer.id })
+      })
+    })
+    .then(() => res.send({ success: true }));
   })
 });
 
