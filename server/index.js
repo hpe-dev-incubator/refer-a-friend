@@ -5,7 +5,6 @@ const port  = process.env.PORT || 3000;
 const db = require('./models');
 const Referrers = db.referrers;
 const Referrals = db.referrals;
-console.log(db);
 
 const app = express();
 app.use(bodyParser.json());
@@ -42,7 +41,6 @@ app.post('/api/refer-a-friend', (req, res) => {
   .then(() => {
     Referrers.create({ email: email, name: name })
     .then(referrer => {
-      console.log('THIS IS THE ID',referrer.id);
       referrals.map(email => {
         Referrals.create({ email: email, referrerId: referrer.id })
       })
@@ -77,7 +75,6 @@ app.post('/api/check-in', (req, res) => {
             console.log('SEND AN EMAIL WITH SENDGRID');
             res.send({ success: true });
           }else{
-            console.log('HERE!')
             res.send({ success: true });
           }
         })

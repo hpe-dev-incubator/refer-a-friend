@@ -79,7 +79,6 @@ class SubmissionsManager extends Component {
   handleErrors(response) {
     const { errors } = this.state;
     if(!response.success) {
-      console.log('RESPONSE',response);
       switch(response.type) {
         case 'Check-in':
           errors.emailCheckin = response.error;
