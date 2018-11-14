@@ -10,6 +10,13 @@ const Referrals = db.referrals;
 const sendGrid = require('./sendGrid');
 
 const app = express();
+
+const emailSubjectRef = 'Youve been invited!';
+const emailBodyRef = 'Come hack with your pal!';
+
+const emailSubjectWin = 'You Won!';
+const emailBodyWin = 'Great job on having friends that follow through!';
+
 app.use(bodyParser.json());
 
 app.post('/api/refer-a-friend', (req, res) => {
@@ -40,10 +47,7 @@ app.post('/api/refer-a-friend', (req, res) => {
         let foundEmails = [];
         referrals.map(referral => {
           foundEmails.push(referral.email)
-        })
-        console.log('-------------------------------')
-        console.log(foundEmails);
-        console.log('-------------------------------')
+        });
         res.send({ success: false, type: 'Ref', foundEmails: foundEmails, error: 'Email already exists.' })
         throw new Error('Referral error - email exists within the referrals table.')
       }
@@ -52,7 +56,7 @@ app.post('/api/refer-a-friend', (req, res) => {
       Referrers.create({ email: email, name: name })
       .then(referrer => {
         referrals.map(email => {
-          console.log(`SEND INVITATION EMAIL WITH SENDGRID TO: ${email}`)
+          sendGrid({ recipient: email, subject: emailSubjectRef, content: emailBodyRef })
           Referrals.create({ email: email, referrerId: referrer.id })
         })
       })
@@ -64,7 +68,6 @@ app.post('/api/refer-a-friend', (req, res) => {
 
 app.post('/api/check-in', (req, res) => {
   const { email } = req.body;
-/*   sendGrid({ recipient: 'iankbovard@gmail.com', subject: 'THIS IS THE SUBJECT', content: 'WORK DAMN YOU!!' }); */
   if(!email){
     res.status(400).send({ success: false, error: 'Request body is missing an email property.' });
     return;
@@ -89,7 +92,7 @@ app.post('/api/check-in', (req, res) => {
         referrer.increment('checkinCount', { by: 1 })
         .then(referrer => {
           if(referrer.checkinCount === 3){
-            console.log(`SEND PRIZE WINNER EMAIL WITH SENDGRID TO: ${email}` );
+            sendGrid({ recipient: referrer.email, subject: emailSubjectWin, content: emailBodyWin })
             res.send({ success: true });
           }else{
             res.send({ success: true });
