@@ -19,9 +19,7 @@ class SubmissionsManager extends Component {
         firstName: '', 
         lastName: '',
         emailRefer: '', 
-        ref0: '', 
-        ref1: '', 
-        ref2: '' 
+        ref: ['', '', '']
       },
       checkedIn: false,
       modalOpen: false
@@ -77,7 +75,7 @@ class SubmissionsManager extends Component {
   }
   /* Handler for submitting check-in and referrals. Checks server response for success property */
   handleErrors(response) {
-    const { errors } = this.state;
+    const { errors, referrals } = this.state;
     if(!response.success) {
       switch(response.type) {
         case 'Check-in':
@@ -85,19 +83,14 @@ class SubmissionsManager extends Component {
           this.setState({ errors: errors });
           return false;
         case 'Email Ref':
-          errors.emailRefer = response.error;
+          errors.emailRefer = response.error; 
           this.setState({ errors: errors });
           return false;
-        case 'ref0':
-          errors.ref0 = response.error;
-          this.setState({ errors: errors });
-          return false;
-        case 'ref1':
-          errors.ref1 = response.error;
-          this.setState({ errors: errors });
-          return false;
-        case 'ref2':
-          errors.ref2 = response.error;
+        case 'Ref':
+          response.foundEmails.map(email => {
+            let index = referrals.indexOf(email);
+            errors.ref[index] = response.error;
+          });
           this.setState({ errors: errors });
           return false;
         default:
