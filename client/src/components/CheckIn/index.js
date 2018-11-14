@@ -1,29 +1,27 @@
 import React from 'react';
-import { Box, Text, FormField, TextInput, Button } from 'grommet';
-import { Header } from './styles';
+import { Box, Text, Paragraph, FormField, TextInput, Button } from 'grommet';
+import { Heading } from './styles';
 
 const CheckIn = ({ errors, onChange, onSubmit }) => (
   <Box 
-  elevation="medium"
   pad={{ "top": "xsmall", "bottom": "large", "left": "large", "right": "large" }} 
   margin={{ "top": "xlarge" , "left": "xlarge", "right": "xlarge"}} 
-  direction="column" 
-  round="small" 
-  background="white" 
+  direction="column"
+  round="small"
+  background="light-1"
   align="start"
   >
-    <Header 
+    <Heading 
       margin={{ "top": "large", "bottom": "small" }}
     >
       Check-in
-    </Header>
-    <Text 
-      size="medium" 
+    </Heading>
+    <Paragraph 
       color="neutral-2" 
-      margin={{ "bottom": "small", "right": "xlarge" }}
+      margin={{ "bottom": "small" }}
     >
       A friend referred you to us? Check in now.
-    </Text>
+    </Paragraph>
     <FormField 
       label="Email Address" 
       fill={true}
@@ -37,7 +35,6 @@ const CheckIn = ({ errors, onChange, onSubmit }) => (
       margin={{ "top": "medium" }}
     >
       <Button 
-        fill={true} 
         margin={{ "top": "xsmall", "bottom": "xsmall" }}
         onClick={onSubmit}
       >

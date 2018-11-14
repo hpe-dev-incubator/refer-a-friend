@@ -1,20 +1,19 @@
 import React from 'react';
 import { Box, Text, Button } from 'grommet';
-import { Header } from './styles';
+import { Heading } from './styles';
 
 const ReferAHacker = ({ checkedIn, onOpen }) => (
   <Box
     align="start"
-    margin={{ "top": "large", "left": "xlarge", "bottom": "small" }}
+    margin={{ "top": "large", "left": "xlarge", "bottom": "small", "right": "xlarge" }}
     background={checkedIn ? "white": "neutral-1"}
     round={{ "size": "small", "corner": "left" }}
-    fill="horizontal"
   >
-    <Header
+    <Heading
       margin={{ "bottom": "small", "left": "large"}}
     >
       Refer a Hacker
-    </Header>
+    </Heading>
       <Text 
         size="medium" 
         margin={{ "bottom": "medium", "left": "large" }}

@@ -1,23 +1,23 @@
 import React from 'react';
-import { Box, Text, Paragraph } from 'grommet';
-import { Header, Hexagon } from './styles';
+import { Box, Text, Paragraph, Image } from 'grommet';
+import { Heading } from './styles';
 
 const EventDescription = () => (
   <Box
-    align="center" 
-    directon="column" 
     style={{ "backgroundColor": "rgb(56, 77, 92)" }}
     basis="1/2"
+    align="center"
+    justify="end"
   >
     <Box 
       alignSelf="start" 
       margin="medium" 
       direction="row"
     >
-      <Hexagon margin={{ "right": "small" }}></Hexagon>
+      <Image src="images/hpe-dev-hexagon.svg"/>
       <Text 
         size="medium" 
-        margin={{ "right": "xsmall" }} 
+        margin={{ "right": "xsmall", "left": "small" }} 
         weight="bold" 
         color="light-1" 
         alignSelf="start"
@@ -31,21 +31,29 @@ const EventDescription = () => (
         Developer
       </Text>
     </Box>
-    <Box margin="small">
-      <Header 
-        margin={{ "top": "xlarge", "bottom": "xsmall" }}
-        color="light-1" 
+    <Box
+      directon="column"
+    >
+      <Box margin="small">
+        <Heading 
+          margin={{ "top": "xlarge", "bottom": "xsmall" }}
+          color="light-1" 
+        >
+          Welcome to the Hack Shack
+        </Heading>
+        <Paragraph
+          margin={{ "top": "small" }}
+          color="light-1"
+        >
+          Turnip greens yellow ricebean rutaba endive cauliflower sea lettuce kohlrabi amaranth water spincah avocado daikon napa cabbage asparagus winter purslane kale.
+        </Paragraph>
+      </Box>
+      <Box 
+        margin={{ "top": "large" }}
       >
-        Welcome to the Hack Shack
-      </Header>
-      <Paragraph
-        margin={{ "top": "small" }}
-        color="light-1"
-      >
-        Turnip greens yellow ricebean rutaba endive cauliflower sea lettuce kohlrabi amaranth water spincah avocado daikon napa cabbage asparagus winter purslane kale.
-      </Paragraph>
+        <Image src="/images/gremlin.svg"/>
+      </Box>
     </Box>
-    <Box>picture goes here</Box>
   </Box>
 );
 

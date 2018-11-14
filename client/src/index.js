@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import App from './components/App';
-import { hpe } from 'grommet-theme-hpe';
+import hpe from './theme'
 import { Grommet } from 'grommet';
 import ThankYou from './components/ThankYou';
 
