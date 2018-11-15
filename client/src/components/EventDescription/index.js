@@ -17,17 +17,18 @@ const EventDescription = () => (
     >
       <Image src="images/hpe-dev-logo.svg"/>
       <Text 
-        size="medium" 
+        size="xlarge" 
         margin={{ "right": "xsmall", "left": "small" }} 
         weight="bold" 
         color="light-1" 
-        alignSelf="start"
+        alignSelf="center"
       >
         HPE
       </Text>
       <Text 
-        size="medium" 
+        size="xlarge" 
         color="light-1"
+        alignSelf="center"
       >
         Developer
       </Text>
