@@ -5,7 +5,7 @@ import EventDescription from '../EventDescription';
 
 const Layout = ({ history, ...rest }) => (
   <Box 
-    overflow="hidden" 
+    overflow="auto" 
     direction="row-responsive"
     {...rest}
   >

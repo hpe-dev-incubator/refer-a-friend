@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Text, Paragraph, Image } from 'grommet';
 import { Heading } from './styles';
+import GremlinWave from '../GremlinWave';
 
 const EventDescription = () => (
   <Box
@@ -14,7 +15,7 @@ const EventDescription = () => (
       margin="medium" 
       direction="row"
     >
-      <Image src="images/hpe-dev-hexagon.svg"/>
+      <Image src="images/hpe-dev-logo.svg"/>
       <Text 
         size="medium" 
         margin={{ "right": "xsmall", "left": "small" }} 
@@ -53,9 +54,9 @@ const EventDescription = () => (
       <Box 
         margin={{ "top": "large" }}
       >
-        <Image src="/images/gremlin.svg"/>
       </Box>
     </Box>
+    <GremlinWave />
   </Box>
 );
 

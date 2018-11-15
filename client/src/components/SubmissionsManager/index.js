@@ -21,7 +21,7 @@ class SubmissionsManager extends Component {
         emailRefer: '', 
         ref: ['', '', '']
       },
-      checkedIn: true,
+      checkedIn: false,
       modalOpen: false
     }
     this.onOpen = this.onOpen.bind(this);

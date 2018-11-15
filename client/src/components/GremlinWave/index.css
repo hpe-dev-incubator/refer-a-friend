@@ -1,0 +1,164 @@
+#gremlin {
+}
+#body {
+  -webkit-transform-origin: 450px 712px;
+  -ms-transform-origin: 450px 712px;
+  transform-origin: 450px 712px;
+  -webkit-animation: sway 2s ease-in-out infinite;
+  animation: sway 2s ease-in-out infinite;
+  position: relative;
+}
+#shoulder {
+  -webkit-transform-origin: 380px 492px;
+  -ms-transform-origin: 380px 492px;
+  transform-origin: 380px 492px;
+  -webkit-animation: shoulder 2s ease-in-out infinite;
+  animation: shoulder 2s ease-in-out infinite;
+  position: relative;
+}
+#forearm, #hand {
+  position: relative;
+}
+#hand {
+  -webkit-transform-origin: 166px 166px;
+  -ms-transform-origin: 166px 166px;
+  transform-origin: 166px 166px;
+  -webkit-animation: wrist 2s ease-in-out infinite;
+  animation: wrist 2s ease-in-out infinite;
+}
+#forearm {
+  -webkit-transform-origin: 148px 382px;
+  -ms-transform-origin: 148px 382px;
+  transform-origin: 148px 382px;
+  -webkit-animation: elbow 2s ease-in-out infinite;
+  animation: elbow 2s ease-in-out infinite;
+}
+#anchor {
+  -webkit-transform-origin: 596px 552px;
+  -ms-transform-origin: 596px 552px;
+  transform-origin: 596px 552px;
+  position: absolute;
+}
+#brow, #ear {
+  position: relative;
+}
+#ear {
+  -webkit-transform-origin: 576px 168px;
+  -ms-transform-origin: 576px 168px;
+  transform-origin: 576px 168px;
+  -webkit-animation: scrunch 4s ease-in-out infinite;
+  animation: scrunch 4s ease-in-out infinite;
+}
+#brow {
+  -webkit-transform-origin: 490px 210px;
+  -ms-transform-origin: 490px 210px;
+  transform-origin: 490px 210px;
+  -webkit-animation: scrunch 6s ease-in-out infinite;
+  animation: scrunch 6s ease-in-out infinite;
+}
+@-webkit-keyframes shoulder {
+  50% {
+    -webkit-transform: rotate(24deg);
+            transform: rotate(24deg);
+  }
+}
+@keyframes shoulder {
+  50% {
+    -webkit-transform: rotate(24deg);
+            transform: rotate(24deg);
+  }
+}
+@-webkit-keyframes elbow {
+  50% {
+    -webkit-transform: rotate(14deg);
+            transform: rotate(14deg);
+  }
+}
+@keyframes elbow {
+  50% {
+    -webkit-transform: rotate(14deg);
+            transform: rotate(14deg);
+  }
+}
+@-webkit-keyframes wrist {
+  50% {
+    -webkit-transform: rotate(8deg);
+            transform: rotate(8deg);
+  }
+}
+@keyframes wrist {
+  50% {
+    -webkit-transform: rotate(8deg);
+            transform: rotate(8deg);
+  }
+}
+@-webkit-keyframes sway {
+  50% {
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+}
+@keyframes sway {
+  50% {
+    -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+  }
+}
+@-webkit-keyframes scrunch {
+  0%,
+  71% {
+    -webkit-transform: translateY(4px);
+            transform: translateY(4px);
+  }
+  72%,
+  73% {
+    -webkit-transform: translateY(-4px);
+            transform: translateY(-4px);
+  }
+  74%,
+  100% {
+    -webkit-transform: translateY(4px);
+            transform: translateY(4px);
+  }
+}
+@keyframes scrunch {
+  0%,
+  71% {
+    -webkit-transform: translateY(4px);
+            transform: translateY(4px);
+  }
+  72%,
+  73% {
+    -webkit-transform: translateY(-4px);
+            transform: translateY(-4px);
+  }
+  74%,
+  100% {
+    -webkit-transform: translateY(4px);
+            transform: translateY(4px);
+  }
+}
+@-webkit-keyframes wiggle {
+  0%,
+  23% {
+    -webkit-transform: rotate(-4deg);
+            transform: rotate(-4deg);
+  }
+  24%,
+  100% {
+    -webkit-transform: rotate(4deg);
+            transform: rotate(4deg);
+  }
+}
+@keyframes wiggle {
+  0%,
+  23% {
+    -webkit-transform: rotate(-4deg);
+            transform: rotate(-4deg);
+  }
+  24%,
+  100% {
+    -webkit-transform: rotate(4deg);
+            transform: rotate(4deg);
+  }
+}

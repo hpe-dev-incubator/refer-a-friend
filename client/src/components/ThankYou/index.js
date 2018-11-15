@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Text, Heading, Button, Image } from 'grommet';
+import GremlinWave from '../GremlinWave';
 
 const ThankYou = (props) => (
   <Box
@@ -13,7 +14,7 @@ const ThankYou = (props) => (
       margin="medium" 
       direction="row"
     >
-      <Image src="images/hpe-dev-hexagon.svg"/>
+      <Image src="images/hpe-dev-logo.svg"/>
       <Text 
         size="medium" 
         margin={{ "right": "xsmall", "left": "small" }} 
@@ -52,7 +53,7 @@ const ThankYou = (props) => (
           </Text>
         </Button>
       </Box>
-      <Image src="images/gremlin.svg"/>
+      <GremlinWave />
   </Box>
 );
 
