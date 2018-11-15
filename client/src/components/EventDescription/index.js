@@ -34,7 +34,9 @@ const EventDescription = () => (
     <Box
       directon="column"
     >
-      <Box margin="small">
+      <Box 
+        margin="small"
+      >
         <Heading 
           margin={{ "top": "xlarge", "bottom": "xsmall" }}
           color="light-1" 

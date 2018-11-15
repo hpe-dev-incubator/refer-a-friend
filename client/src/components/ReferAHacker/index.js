@@ -5,29 +5,31 @@ import { Heading } from './styles';
 const ReferAHacker = ({ checkedIn, onOpen }) => (
   <Box
     align="start"
-    margin={{ "top": "large", "left": "xlarge", "bottom": "small", "right": "xlarge" }}
-    background={checkedIn ? "white": "neutral-1"}
-    round={{ "size": "small", "corner": "left" }}
+    pad={{ "top": "medium", "bottom": "medium", "left": "large", "right": "large"}}
+    margin={{ "top": "large", "left": "xlarge", "right": "xlarge" }}
+    background={checkedIn ? "white" : "neutral-1"}
+    round="small"
+    
   >
     <Heading
-      margin={{ "bottom": "small", "left": "large"}}
+      margin={{ "bottom": "small" }}
     >
       Refer a Hacker
     </Heading>
       <Text 
         size="medium" 
-        margin={{ "bottom": "medium", "left": "large" }}
+        margin={{ "bottom": "medium"}}
       >
         Participate in our referral program to win great prizes.
       </Text>
       <Box 
       background="brand" 
       round="xsmall"
-      margin={{ "bottom": "small", "left": "large" }} 
+      margin={{ "bottom": "medium"}}
     >
       <Button 
         pad="small" 
-        margin={{ "top": "small", "bottom": "small" }}
+        margin={{ "top": "xsmall", "bottom": "xsmall" }}
         onClick={onOpen}
       >
         <Text 

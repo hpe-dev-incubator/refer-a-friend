@@ -8,10 +8,12 @@ const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralC
     modal={true}
     onEsc={onClose}
     position="right"
+    round={{ "size": "large", "corner": "left" }}
+    responsive={false}
   >
     <Box
-      overflow="scroll"
       background="light-1"
+      overflow="auto"
     >
       <Button 
         icon={<Close />} 
