@@ -3,13 +3,12 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
-    checkedIn: {
+/*     checkedIn: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
-    }
+    } */
   })
     Referrals.associate = (models) => {
       Referrals.belongsTo(models.referrers);

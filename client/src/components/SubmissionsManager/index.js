@@ -75,23 +75,29 @@ class SubmissionsManager extends Component {
   }
   /* Handler for submitting check-in and referrals. Checks server response for success property */
   handleErrors(response) {
-    const { errors, referrals } = this.state;
+    const { errors } = this.state;
     if(!response.success) {
       switch(response.type) {
-        case 'Check-in':
+        case 'Check-in not found':
           errors.emailCheckin = response.error;
           this.setState({ errors: errors });
           return false;
-        case 'Email Ref':
+        case 'Duplicate Referrer':
           errors.emailRefer = response.error; 
           this.setState({ errors: errors });
           return false;
-        case 'Ref':
+/*         case 'Ref':
           response.foundEmails.map(email => {
             let index = referrals.indexOf(email);
             errors.ref[index] = response.error;
           });
           this.setState({ errors: errors });
+          return false; */
+        case 'Duplicate Refs':
+          response.duplicateIndexes.map(index => {
+            errors.ref[index] = response.error;
+          })
+          this.setState({ errors: errors })
           return false;
         default:
         throw Error(response.error);

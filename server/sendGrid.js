@@ -2,9 +2,6 @@ const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 const sendGrid = ({ recipient, subject, content }) =>
   new Promise((resolve, reject) => {
-    console.log('RECIPIENT',recipient);
-    console.log('SUBJECT',subject);
-    console.log('CONTENT',content);
     const contentPlainText = content.replace(/<(?:.|\n)*?>/gm, '');
     const envParams = {};
 
