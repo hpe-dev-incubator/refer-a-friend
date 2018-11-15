@@ -8,11 +8,12 @@ const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralC
     modal={true}
     onEsc={onClose}
     position="right"
-    round={{ "size": "large", "corner": "left" }}
     responsive={false}
+    full="vertical"
   >
     <Box
-      background="light-1"
+      round={{ "size": "xlarge", "corner": "left" }}
+      background="white"
       overflow="auto"
     >
       <Button 
@@ -44,14 +45,14 @@ const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralC
           <TextInput onChange={onReferralChange.bind(this, 1)} />
         </FormField>
         <FormField 
-          label="Email Address" 
+          label="Email Address"
           fill="horizontal"
           error={errors.ref[2]}
         >
           <TextInput onChange={onReferralChange.bind(this, 2)} />
         </FormField>
         <Header margin={{ "bottom": "small" }}>How can we reach you?</Header>
-        <Text margin={{ "bottom": "medium" }}>You want to win? Leave your email address too.</Text>
+        <Text  color="neutral-2" margin={{ "bottom": "medium" }}>You want to win? Leave your email address too.</Text>
         <FormField
           label="First Name" 
           fill="horizontal"
