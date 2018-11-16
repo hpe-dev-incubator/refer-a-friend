@@ -5,7 +5,7 @@ export default deepMerge(hpe, {
   global: {
     breakpoints : {
       small : {
-        value: 970,
+        value: 950,
       }
     }
   }

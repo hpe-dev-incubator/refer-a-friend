@@ -54,7 +54,12 @@ const ThankYou = (props) => (
           </Text>
         </Button>
       </Box>
-      <GremlinWave />
+      <Box
+        margin={{"right": "large"}}
+        pad={{ "right": "large"}}
+      >
+        <GremlinWave />
+      </Box>
   </Box>
 );
 

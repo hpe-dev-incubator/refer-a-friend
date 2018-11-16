@@ -3,5 +3,5 @@ import styled from 'styled-components';
 
 export const Heading = styled(Paragraph)`
   font-weight: bold;
-  font-size: 35px;
+  font-size: 38px;
 `

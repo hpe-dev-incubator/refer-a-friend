@@ -35,13 +35,16 @@ const EventDescription = () => (
     </Box>
     <Box
       directon="column"
+      fill="horizontal"
+      align="center"
+
     >
-      <Box 
-        margin="small"
-      >
+    <Box
+      align="start"
+    >
         <Heading 
           margin={{ "top": "xlarge", "bottom": "xsmall" }}
-          color="light-1" 
+          color="light-1"
         >
           Welcome to the Hack Shack
         </Heading>
@@ -51,13 +54,19 @@ const EventDescription = () => (
         >
           Turnip greens yellow ricebean rutaba endive cauliflower sea lettuce kohlrabi amaranth water spincah avocado daikon napa cabbage asparagus winter purslane kale.
         </Paragraph>
-      </Box>
-      <Box 
-        margin={{ "top": "large" }}
-      >
+        <Box 
+          margin={{ "top": "large" }}
+        >
+        </Box>
       </Box>
     </Box>
-    <GremlinWave />
+
+    <Box
+      margin={{"right": "large"}}
+      pad={{ "right": "large"}}
+    >
+      <GremlinWave />
+    </Box>
   </Box>
 );
 
