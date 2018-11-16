@@ -6,15 +6,15 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import App from './components/App';
 import hpe from './theme'
-import { Grommet } from 'grommet';
+import { StyledApp } from './styles';
 import ThankYou from './components/ThankYou';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Grommet theme={hpe}>
+    <StyledApp theme={hpe}>
       <Route exact path='/' component={App}  />
       <Route path='/thankyou' component={ThankYou} />
-    </Grommet>
+    </StyledApp>
   </BrowserRouter>, 
   document.getElementById('root')
   );
