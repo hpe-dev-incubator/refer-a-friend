@@ -4,24 +4,23 @@ import { Heading } from './styles';
 
 const CheckIn = ({ errors, onChange, onSubmit }) => (
   <Box 
-  margin={{ "top": "xlarge" , "left": "xlarge", "right": "xlarge"}}
-  direction="column"
-  round="small"
-  background="light-1"
-  pad="xxsmall"
+    direction="column"
+    round="small"
+    background="light-1"
+    margin={{ "top": "xlarge" }}
   >
     <Box
       align="start"
-      margin="large"
+      pad="large"
     >
       <Heading 
-        margin={{ "bottom": "xsmall", "top": "xsmall" }}
       >
         Check-in
       </Heading>
       <Paragraph 
-        color="neutral-2" 
-        margin={{ "bottom": "small", "top": "xsmall" }}
+        color="neutral-3"
+        size="large"
+        margin={{ "right": "xlarge" }} 
       >
         A friend referred you to us? Check in now.
       </Paragraph>
@@ -29,22 +28,23 @@ const CheckIn = ({ errors, onChange, onSubmit }) => (
         label="Email Address" 
         fill={true}
         error={errors}
+        margin={{ "bottom": "large" }}
       >
         <TextInput onChange={onChange} />
       </FormField>
       <Box 
         background="brand" 
-        round="xsmall" 
-        margin={{ "top": "medium" }}
+        round="xsmall"
+        margin={{ "bottom": "small" }}
+        pad={{ "left": "large", "right": "large", "top": "xsmall", "bottom": "xsmall" }}
+        style={{"minHeight": "auto"}}
       >
         <Button 
-          margin={{ "top": "xsmall", "bottom": "xsmall" }}
           onClick={onSubmit}
         >
           <Text 
             size="xlarge" 
             weight="bold" 
-            margin={{ "left": "large", "right": "large"}}
           >
             Check in
           </Text>

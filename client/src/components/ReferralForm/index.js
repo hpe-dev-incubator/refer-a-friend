@@ -1,35 +1,43 @@
 import React from 'react';
-import { Layer, Box, Button, TextInput, FormField, Text } from 'grommet';
+import { Layer, Box, Button, TextInput, FormField, Text, Paragraph } from 'grommet';
 import { Close } from 'grommet-icons';
-import { Header } from './styles'; 
+import { Heading } from './styles'; 
 
 const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralChange, onNameChange, onEmailChange, onSubmit}) => (
   <Layer
     modal={true}
     onEsc={onClose}
     position="right"
-    responsive={false}
     full="vertical"
   >
     <Box
-      round={{ "size": "xlarge", "corner": "left" }}
-      background="white"
+      fill={true}
+      background="light-1"
       overflow="auto"
+      round={{ "size": "small", "corner": "left"}}
     >
-      <Button 
-        icon={<Close />} 
-        alignSelf="end"
-        margin={{ "top": "small", "right": "large" }}
-        onClick={onClose}
-      >
-      </Button>
       <Box
-        margin={{ "left": "xlarge", "right": "xlarge", "bottom": 'xlarge' }}
+        flex={false}
+        alignSelf="end"
+      >
+        <Button 
+          icon={<Close color="brand" />} 
+          onClick={onClose}
+          margin="small"
+        >
+        </Button>
+      </Box>
+      <Box
+        flex={false}
+        margin={{ "left": "large", "right": "large" }}
         direction="column"
         align="start"
-        flex={false}
       >
-        <Header>Refer 3 Hackers By Email</Header>
+        <Heading
+          margin={{ "bottom": "large"}}
+        >
+          Refer 3 Hackers By Email
+        </Heading>
         <FormField
           label="Email Address" 
           fill="horizontal"
@@ -51,8 +59,19 @@ const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralC
         >
           <TextInput onChange={onReferralChange.bind(this, 2)} />
         </FormField>
-        <Header margin={{ "bottom": "small" }}>How can we reach you?</Header>
-        <Text  color="neutral-2" margin={{ "bottom": "medium" }}>You want to win? Leave your email address too.</Text>
+        <Text
+          size="xlarge"
+          margin={{ "top": "large", "bottom": "small"}}
+        >
+          How can we reach you?
+        </Text>
+        <Text 
+          size="large"
+          color="neutral-2" 
+          margin={{ "bottom": "medium"}}
+        >
+          You want to win? Leave your email address too.
+        </Text>
         <FormField
           label="First Name" 
           fill="horizontal"
@@ -77,16 +96,15 @@ const ReferralForm = ({ email, firstName, lastName, onClose, errors, onReferralC
         <Box 
           background="brand" 
           round="xsmall" 
-          margin={{ "top": "medium" }}
+          margin={{ "bottom": "xlarge", "top": "medium" }}
+          pad={{ "left": "large", "right": "large", "top": "xsmall", "bottom": "xsmall" }}
         >
           <Button
-            margin={{ "top": "xsmall", "bottom": "xsmall" }}
             onClick={onSubmit}
           >
             <Text 
               size="xlarge" 
               weight="bold" 
-              margin={{ "left": "large", "right": "large"}}
             >
               Submit
             </Text>

@@ -1,69 +1,34 @@
 import React from 'react';
-import { Box, Text, Paragraph, Image } from 'grommet';
+import { Box, Paragraph } from 'grommet';
 import { Heading } from './styles';
 import GremlinWave from '../GremlinWave';
+import Logo from '../Logo';
 
 const EventDescription = () => (
   <Box
-    style={{ "backgroundColor": "rgb(56, 77, 92)" }}
+    background="dark-gray"
     basis="1/2"
     align="center"
-    justify="end"
+    justify="between"
+    directon="column"
   >
-    <Box 
-      alignSelf="start" 
-      margin="medium" 
-      direction="row"
+    <Logo />
+    <Box
+      margin={{ "top": "xlarge"}}
+      pad="large"
     >
-      <Image src="images/hpe-dev-logo.svg"/>
-      <Text 
-        size="xlarge" 
-        margin={{ "right": "xsmall", "left": "small" }} 
-        weight="bold" 
-        color="light-1" 
-        alignSelf="center"
+    <Box
+    >
+      <Heading>Welcome to the Hack Shack</Heading>
+      <Paragraph
+        size="large"
       >
-        HPE
-      </Text>
-      <Text 
-        size="xlarge" 
-        color="light-1"
-        alignSelf="center"
-      >
-        Developer
-      </Text>
+        Turnip greens yellow ricebean rutaba endive cauliflower sea lettuce kohlrabi amaranth water spincah avocado daikon napa cabbage asparagus winter purslane kale.
+      </Paragraph>
+    </Box>
     </Box>
     <Box
-      directon="column"
-      fill="horizontal"
-      align="center"
-
-    >
-    <Box
-      align="start"
-    >
-        <Heading 
-          margin={{ "top": "xlarge", "bottom": "xsmall" }}
-          color="light-1"
-        >
-          Welcome to the Hack Shack
-        </Heading>
-        <Paragraph
-          margin={{ "top": "small" }}
-          color="light-1"
-        >
-          Turnip greens yellow ricebean rutaba endive cauliflower sea lettuce kohlrabi amaranth water spincah avocado daikon napa cabbage asparagus winter purslane kale.
-        </Paragraph>
-        <Box 
-          margin={{ "top": "large" }}
-        >
-        </Box>
-      </Box>
-    </Box>
-
-    <Box
-      margin={{"right": "large"}}
-      pad={{ "right": "large"}}
+      margin={{ "right": "xlarge" }}
     >
       <GremlinWave />
     </Box>
