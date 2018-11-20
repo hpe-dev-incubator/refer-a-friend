@@ -13,7 +13,7 @@ const ThankYou = (props) => (
   >
     <Logo />
     <Box
-      margin="xlarge"
+      margin="small"
       pad="large"
       align="center"
     >
