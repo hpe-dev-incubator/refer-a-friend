@@ -1,62 +1,49 @@
 import React from 'react';
-import { Box, Text, Heading, Button, Image } from 'grommet';
+import { Box, Text, Button} from 'grommet';
+import { Heading } from './styles'
 import GremlinWave from '../GremlinWave';
+import Logo from '../Logo';
 
 const ThankYou = (props) => (
   <Box
-    align="center"
     direction="column" 
-    justify="end"
-    style={{ backgroundColor: "rgb(56, 77, 92)", minHeight: "100vh" }}
+    justify="between"
+    background="dark-gray"
+    align="center"
   >
-    <Box 
-      alignSelf="start" 
-      margin="medium" 
-      direction="row"
+    <Logo />
+    <Box
+      margin="xlarge"
+      pad="large"
+      align="center"
     >
-      <Image src="images/hpe-dev-logo.svg"/>
-      <Text 
-        size="xlarge" 
-        margin={{ "right": "xsmall", "left": "small" }} 
-        weight="bold" 
-        color="light-1" 
-        alignSelf="center"
+      <Heading
+        margin={{ "bottom": "large" }}
       >
-        HPE
-      </Text>
-      <Text 
-        size="xlarge" 
-        color="light-1"
-        alignSelf="center"
-      >
-        Developer
-      </Text>
-    </Box>
-    <Heading color="white">
-      Thank You!
-    </Heading>
+        Thank you
+      </Heading>
       <Box 
-        background="brand" 
+        background="brand"
+        alignSelf="center" 
         round="xsmall"
-        margin={{ "bottom": "large"}}
+        margin={{ "top": "medium" }}
+        pad={{ "top": "small", "bottom": "small", "left": "medium", "right": "medium" }}
       >
         <Button 
-          pad="small" 
-          margin={{ "top": "xsmall", "bottom": "xsmall" }}
           onClick={() => props.history.push('/')}
         >
           <Text 
             size="xlarge" 
-            weight="bold" 
-            margin={{ "left": "large", "right": "large"}}
+            weight="bold"
+            margin="large" 
           >
             Go back
           </Text>
         </Button>
       </Box>
+    </Box>
       <Box
-        margin={{"right": "large"}}
-        pad={{ "right": "large"}}
+        margin={{ "right": "xlarge"}}
       >
         <GremlinWave />
       </Box>

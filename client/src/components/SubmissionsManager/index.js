@@ -225,10 +225,14 @@ class SubmissionsManager extends Component {
         background="neutral-1"
         basis="1/2"
         overflow="hidden"
-        pad={{ "top": "large" }}
+        justify={checkedIn ? "start" : "center"}
+      >
+      <Box
+        align="center"
       >
         {checkedIn ? <CheckedIn /> : <CheckIn  errors={errors.emailCheckin} onChange={this.onEmailChange} onSubmit={this.onCheckInSubmit}/>}
         <ReferAHacker checkedIn={checkedIn} onOpen={this.onOpen}/>
+      </Box>
         {layer}
       </Box>
     )

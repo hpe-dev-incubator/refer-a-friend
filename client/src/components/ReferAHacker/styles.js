@@ -1,6 +1,7 @@
-import { Paragraph } from 'grommet';
+import { Text } from 'grommet';
 import styled from 'styled-components';
 
-export const Heading = styled(Paragraph)`
-  font-size: 30px;
+export const Heading = styled(Text)`
+  font-size: 40px;
+  font-weight: 400;
 `

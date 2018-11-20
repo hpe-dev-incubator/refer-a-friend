@@ -5,11 +5,12 @@ export default deepMerge(hpe, {
   global: {
     breakpoints: {
       small: {
-        value: 970
+        value: 950
       }
     },
     colors: {
-      "fresh-green": "#00C496"
+      "fresh-green": "#00C496",
+      "dark-gray": "#384d5c"
     }
   }
 })
