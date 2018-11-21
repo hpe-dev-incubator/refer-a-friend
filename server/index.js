@@ -100,26 +100,3 @@ app.post('/api/check-in', (req, res) => {
 db.sequelize.sync().then(() => {
   app.listen(port, () => console.log(`listening on port ${port}`))
 });
-
-
-
-/*   .then(() => {
-    Referrals.findAll({ where: { email: referrals}})
-    .then(referrals => {
-      if(referrals.length > 0) {
-        let foundEmails = [];
-        referrals.map(referral => {
-          foundEmails.push(referral.email)
-        });
-        res.send({ success: false, type: 'Ref', foundEmails: foundEmails, error: 'Email already exists.' })
-        throw new Error('Referral error - email exists within the referrals table.')
-      }
-    }) */
-
-/*     if(referral.checkedIn) {
-      res.send({ success: false, type: 'Check-in', error: 'Already checked in with this email address.' });
-      throw new Error('Check-in error - email found in referrals table with checked in flag set to true.')
-    } */
-
-    /*   .then(referral => {
-    referral.update({ checkedIn: true }) */
