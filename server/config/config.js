@@ -1,27 +1,24 @@
 const dotenv = require('dotenv').config();
-console.log('------------------------');
-console.log('CONFIG JS');
-console.log('------------------------');
 module.exports = {
     "development": {
-      "username": process.env.DB_USERNAME,
-      "password": process.env.DB_PASSWORD,
-      "database": process.env.DB_NAME,
-      "host": process.env.DB_HOST,
+      "username": process.env.DB_USERNAME_DEV,
+      "password": process.env.DB_PASSWORD_DEV,
+      "database": process.env.DB_NAME_DEV,
+      "host": process.env.DB_HOST_DEV,
       "dialect": "postgres"
     },
     "test": {
-      "username": "root",
-      "password": null,
-      "database": "database_test",
-      "host": "127.0.0.1",
+      "username": process.env.DB_USERNAME_TEST,
+      "password": process.env.DB_PASSWORD_TEST,
+      "database": process.env.DB_NAME_TEST,
+      "host": process.env.DB_HOST_TEST,
       "dialect": "postgres"
     },
     "production": {
-      "username": "root",
-      "password": null,
-      "database": "database_production",
-      "host": "127.0.0.1",
+      "username": process.env.DB_USERNAME_PROD,
+      "password": process.env.DB_PASSWORD_PROD,
+      "database": process.env.DB_NAME_PROD,
+      "host": process.env.DB_HOST_PROD,
       "dialect": "postgres"
   }
 }
