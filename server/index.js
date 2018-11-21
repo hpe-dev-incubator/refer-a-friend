@@ -72,7 +72,7 @@ app.post('/api/check-in', (req, res) => {
   }
   Referrals.findAll({ where: { email: email }})
   .then(referrals => {
-    if(!referrals){
+    if(referrals.length === 0){
       res.send({ success: false, type: 'Check-in not found', error: 'Email not found among referrals' });
       throw new Error('Check-in error - email not found in referrals table.')
     }
@@ -86,7 +86,7 @@ app.post('/api/check-in', (req, res) => {
       referrers.map(referrer => {
         referrer.increment('checkinCount', { by: 1 })
         .then(referrer => {
-          if(referrer.checkinCount > 3){
+          if(referrer.checkinCount === 3){
             sendGrid({ recipient: referrer.email, subject: emailSubjectWin, content: emailBodyWin })
           }
         })
