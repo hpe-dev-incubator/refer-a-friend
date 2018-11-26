@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const emailBodyRef = require('.Emails')
+const emailBodyWin = require('.Emails')
 const dotenv = require('dotenv').config();
 const port  = process.env.PORT || 3000;
 
@@ -12,11 +14,9 @@ const sendGrid = require('./sendGrid');
 const app = express();
 
 const emailSubjectRef = 'You\'ve been invited to the HPE Discover Madrid Hack Shack!';
-const emailBodyRef = (name, userEmail) =>
-  `Join your pal, <a href="mailto:${userEmail}">${name}</a>, at HPE Discover booth DEMO1404, A.K.A the Hack Shack. If you enter a code challenge or participate in a design or technical workshop and check-in via our Refer a Friend app ${name} will have a chance to win cool prizes! You can find more information about our Hack Shack sessions at the <a href="https://content.attend.hpe.com/go/agendabuilder.sessions/?l=38&locale=en_US&AEID=&selectedFilters=tag_0:0,tag_217:3723&kw=hack%20shack">HPE Discover agenda builder</a>`;
 
 const emailSubjectWin = 'Come get your prize at the HPE DEV Hack Shack!';
-const emailBodyWin = 'Looks like you referred the right hackers, they have all checked in and the prize is yours to claim. Come to the Hack Shack, DEMO1404, to collect your prize.';
+console.log(emailBodyWin);
 
 app.use(bodyParser.json());
 
