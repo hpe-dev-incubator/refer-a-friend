@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const emailBodyRef = require('.Emails')
-const emailBodyWin = require('.Emails')
+const emailBodyRef = require('./Emails/emailBodyRef')
+const emailBodyWin = require('./Emails/emailBodyWin')
 const dotenv = require('dotenv').config();
 const port  = process.env.PORT || 3000;
 
