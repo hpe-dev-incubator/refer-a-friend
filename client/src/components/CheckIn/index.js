@@ -7,7 +7,6 @@ const CheckIn = ({ errors, onChange, onSubmit }) => (
     direction="column"
     round="small"
     background="light-1"
-    margin={{ "top": "xlarge" }}
   >
     <Box
       align="start"
