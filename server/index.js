@@ -86,7 +86,7 @@ app.post('/api/check-in', (req, res) => {
         referrer.increment('checkinCount', { by: 1 })
         .then(referrer => {
           if(referrer.checkinCount === 3){
-            sendGrid({ recipient: referrer.email, subject: emailSubjectWin, content: emailBodyWin })
+            sendGrid({ recipient: referrer.email, subject: emailSubjectWin, content: emailBodyWin() })
           }
         })
       })
