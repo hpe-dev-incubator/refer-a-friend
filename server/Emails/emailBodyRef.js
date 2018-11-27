@@ -3,7 +3,7 @@ const emailBodyRef = (name, userEmail) =>
   <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   
   <head>
-    <title>HPE DEV Newsletter</title>
+    <title>HPE DEV | Refer a Hacker</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   
@@ -142,7 +142,7 @@ const emailBodyRef = (name, userEmail) =>
                               <tr>
                                 <td align="left">
                                   <font style="font-family:arial;font-size:42px;color:#FFFFFF;text-decoration:none;font-weight:bold;">
-                                    Congratulations
+                                    You're invited!
                                   </font>
                                 </td>
                               </tr>
@@ -154,13 +154,14 @@ const emailBodyRef = (name, userEmail) =>
                               <tr>
                                 <td align="left">
                                   <font style="font-family:arial;font-size:18px;color:#FFFFFF;line-height:24px;">
-                                    Join your pal, <a href="mailto:${userEmail}">${name}</a>, at HPE Discover booth
+                                    Join your pal, <strong><a href="mailto:${userEmail}" style="color: #fe9a69; text-decoration: none;">${name}</a></strong>, at HPE Discover booth
                                      DEMO1404, A.K.A the Hack Shack. If you enter a code challenge or participate
                                      in a design or technical workshop and check-in via our Refer a Friend
-                                     app ${name} will have a chance to win cool prizes! You can find
-                                     more information about our Hack Shack sessions at the
-                                     <a href="https://content.attend.hpe.com/go/agendabuilder.sessions/?l=38&locale=en_US&AEID=&selectedFilters=tag_0:0,tag_217:3723&kw=hack%20shack">
-                                     HPE Discover agenda builder</a>
+                                     app ${name} will have a chance to win cool prizes!
+                                     <br/><br/>
+                                     You can find more information about our Hack Shack sessions at the
+                                     <strong><a style="color: #fe9a69; text-decoration: none;" href="https://content.attend.hpe.com/go/agendabuilder.sessions/?l=38&locale=en_US&AEID=&selectedFilters=tag_0:0,tag_217:3723&kw=hack%20shack">
+                                     HPE Discover agenda builder</a></strong>
                                     <br/><br/>
     
                                   </font>

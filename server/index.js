@@ -16,7 +16,6 @@ const app = express();
 const emailSubjectRef = 'You\'ve been invited to the HPE Discover Madrid Hack Shack!';
 
 const emailSubjectWin = 'Come get your prize at the HPE DEV Hack Shack!';
-console.log(emailBodyWin);
 
 app.use(bodyParser.json());
 
