@@ -1,6 +1,6 @@
 # HPE Hackshack Refer-A-Friend
 
-Refer-a-friend application for the Hackshack booth at the HPE Discover Event.
+Refer-a-friend application for the Hack Shack booth at the HPE Discover Event.
 
 ## Getting Started
 
@@ -27,8 +27,8 @@ nodemon
 ```
 
 ## Built With
-* [Create-react-app](https://github.com/facebook/create-react-app)
-* [GrommetV2](https://github.com/grommet/grommet)
+* [create-react-app](https://github.com/facebook/create-react-app)
+* [grommetV2](https://github.com/grommet/grommet)
 * [PostgreSQL](https://github.com/postgres/postgres)
 * [Sequelize](https://github.com/sequelize/sequelize)
 
